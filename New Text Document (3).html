@@ -1,0 +1,3101 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Homagama Maha Vidyalaya - A premier educational institution fostering excellence since 19XX">
+  <title>Homagama Maha Vidyalaya | Legacy of Excellence</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+  <!-- Preload Critical Assets -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700&display=swap" as="style">
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js" as="script">
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/typed.js@2.0.12" as="script">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            poppins: ['Poppins', 'sans-serif'],
+            pacifico: ['Pacifico', 'cursive']
+          },
+          colors: {
+            primary: '#e74c3c',
+            secondary: '#f39c12',
+            accent: '#8e44ad',
+            glass: 'rgba(255, 255, 255, 0.1)',
+            dark: '#1d3557',
+            light: '#f1faee'
+          },
+          animation: {
+            'breathe': 'breathe 3s ease-in-out infinite',
+            'float': 'float 6s ease-in-out infinite',
+            'handwriting': 'handwriting 2s steps(30) forwards'
+          },
+          keyframes: {
+            breathe: {
+              '0%, 100%': { transform: 'scale(1)' },
+              '50%': { transform: 'scale(1.02)' }
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' }
+            },
+            handwriting: {
+              '0%': { width: '0' },
+              '100%': { width: '100%' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Custom Styles -->
+  <style>
+    .glassmorphism {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease;
+    }
+
+    .gradient-text {
+      background: linear-gradient(to right, #e74c3c, #f39c12);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .cursor-glow {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(230, 57, 70, 0.5);
+      pointer-events: none;
+      mix-blend-mode: difference;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+      opacity: 0.7;
+      transition: transform 0.1s ease;
+    }
+
+    .skeleton {
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 0.5rem;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .handwriting-animation {
+      overflow: hidden;
+      white-space: nowrap;
+      font-family: 'Pacifico', cursive;
+      border-right: 2px solid;
+    }
+
+    .tilt-effect {
+      transition: transform 0.2s ease;
+    }
+
+    .marquee {
+      animation: marquee 20s linear infinite;
+      white-space: nowrap;
+    }
+
+    @keyframes marquee {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+
+    .floating-label {
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+      pointer-events: none;
+      transition: all 0.2s ease;
+    }
+
+    .floating-label-active {
+      transform: translateY(-1.5rem) scale(0.85);
+    }
+
+    .back-to-home {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #e74c3c;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      box-shadow: 0 0 10px #e74c3c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 9998;
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .back-to-home.show {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1);
+    }
+    #skeletonLoader {
+      position: fixed;
+      inset: 0;
+      z-index: 40;
+      background: linear-gradient(to bottom, #0f1122, #090b1a);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .loader-content {
+      width: 100%;
+      max-width: 6xl;
+      padding: 3rem 1rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Cinematic lighting effects */
+    .ambient-lights {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .light {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.15;
+      animation: float 20s infinite ease-in-out;
+    }
+
+    .light-1 {
+      width: 500px;
+      height: 500px;
+      background: #4158D0;
+      top: -10%;
+      left: 20%;
+      animation-delay: 0s;
+    }
+
+    .light-2 {
+      width: 600px;
+      height: 600px;
+      background: #C850C0;
+      bottom: -20%;
+      right: 10%;
+      animation-delay: -5s;
+    }
+
+    .light-3 {
+      width: 300px;
+      height: 300px;
+      background: #FFCC70;
+      top: 50%;
+      left: -5%;
+      animation-delay: -10s;
+    }
+
+    .light-4 {
+      width: 400px;
+      height: 400px;
+      background: #6366F1;
+      bottom: 10%;
+      left: 30%;
+      opacity: 0.1;
+      animation-delay: -15s;
+    }
+
+    /* Grid layout for skeleton items */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .grid-3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .grid-2 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* Glassmorphism skeleton items */
+    .skeleton-item {
+      height: 16rem;
+      border-radius: 16px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
+      position: relative;
+      overflow: hidden;
+      transform: translateY(30px);
+      opacity: 0;
+      animation: fadeInUp 0.8s forwards, pulse 2s infinite ease-in-out;
+    }
+
+    .skeleton-item.small {
+      height: 12rem;
+    }
+
+    /* Dynamic entry animations with staggered timing */
+    .grid-3 .skeleton-item:nth-child(1) { animation-delay: 0.2s; }
+    .grid-3 .skeleton-item:nth-child(2) { animation-delay: 0.4s; }
+    .grid-3 .skeleton-item:nth-child(3) { animation-delay: 0.6s; }
+    .grid-2 .skeleton-item:nth-child(1) { animation-delay: 0.8s; }
+    .grid-2 .skeleton-item:nth-child(2) { animation-delay: 1s; }
+
+    /* Skeleton shimmer effect */
+    .skeleton-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, 
+        var(--skeleton-base) 0%, 
+        var(--skeleton-highlight) 50%, 
+        var(--skeleton-base) 100%);
+      background-size: 200% 100%;
+      animation: shimmer 2s infinite;
+    }
+
+    /* Inner content placeholder */
+    .skeleton-content {
+      position: relative;
+      padding: 1.5rem;
+      height: 100%;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .skeleton-header {
+      width: 60%;
+      height: 1.5rem;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      margin-bottom: 1rem;
+    }
+
+    .skeleton-body {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      flex: 1;
+    }
+
+    .skeleton-line {
+      height: 0.875rem;
+      background-color: rgba(255, 255, 255, 0.08);
+      border-radius: 4px;
+      width: 100%;
+    }
+
+    .skeleton-line:nth-child(2) { width: 85%; }
+    .skeleton-line:nth-child(3) { width: 70%; }
+
+    .skeleton-footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: auto;
+    }
+
+    .skeleton-button {
+      width: 30%;
+      height: 2rem;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+    }
+
+    /* Loading indicator */
+    .loading-text {
+      text-align: center;
+      margin-top: 3rem;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 1rem;
+      letter-spacing: 1px;
+      font-weight: 300;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      opacity: 0;
+      animation: fadeIn 1s forwards 1.2s;
+    }
+
+    .loading-dots {
+      display: inline-flex;
+    }
+
+    .loading-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.7);
+      margin: 0 2px;
+      animation: dotPulse 1.5s infinite ease-in-out;
+    }
+
+    .loading-dot:nth-child(2) { animation-delay: 0.2s; }
+    .loading-dot:nth-child(3) { animation-delay: 0.4s; }
+
+    /* Progress bar */
+    .progress-container {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      z-index: 5;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #4158D0, #C850C0, #FFCC70);
+      animation: progressAnimation 6s ease-in-out forwards;
+    }
+
+    /* Animation keyframes */
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translate(0, 0) scale(1);
+      }
+      25% {
+        transform: translate(40px, -30px) scale(1.05);
+      }
+      50% {
+        transform: translate(0, 20px) scale(0.95);
+      }
+      75% {
+        transform: translate(-40px, -10px) scale(1);
+      }
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+      }
+      50% {
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.3);
+      }
+    }
+
+    @keyframes dotPulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.7;
+      }
+      50% {
+        transform: scale(1.5);
+        opacity: 1;
+      }
+    }
+
+    @keyframes progressAnimation {
+      0% { width: 0%; }
+      20% { width: 20%; }
+      50% { width: 60%; }
+      80% { width: 85%; }
+      100% { width: 100%; }
+    }
+
+    /* Subtle particle background effect */
+    .particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .particle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background-color: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      animation: particleFloat 15s infinite linear;
+    }
+
+    @keyframes particleFloat {
+      0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) translateX(100px);
+        opacity: 0;
+      }
+    }
+    #welcomeScreen {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      transition: all 1s ease;
+    }
+    
+    .content-container {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 0 1.5rem;
+      max-width: 900px;
+      width: 100%;
+    }
+    
+    .school-badge {
+      width: 90px;
+      height: 90px;
+      background-color: #fef3c7;
+      border-radius: 50%;
+      margin: 0 auto 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 25px rgba(254, 243, 199, 0.2);
+    }
+    
+    .badge-inner {
+      width: 75px;
+      height: 75px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #f97316 0%, #ef4444 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+    
+    .title-container {
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      background: linear-gradient(to right, #f59e0b, #ef4444, #ec4899);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 0.75rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s forwards 0.3s;
+    }
+    
+    .subtitle {
+      color: #e2e8f0;
+      font-weight: 300;
+      font-size: 1.125rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s forwards 0.6s;
+    }
+    
+    .handwritten-accent {
+      font-family: 'Caveat', cursive;
+      color: #f59e0b;
+      font-size: 1.5rem;
+      position: absolute;
+      right: 0;
+      top: -20px;
+      transform: rotate(6deg);
+      opacity: 0;
+      animation: fadeInRotate 1s forwards 0.9s;
+    }
+    
+    #enterButton {
+      margin-top: 2rem;
+      padding: 0.875rem 2.5rem;
+      border-radius: 9999px;
+      background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+      color: white;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s forwards 1.2s;
+    }
+    
+    #enterButton:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(239, 68, 68, 0.4);
+    }
+    
+    #enterButton:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: 0.5s;
+    }
+    
+    #enterButton:hover:before {
+      left: 100%;
+    }
+    
+    .decorative-circles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      z-index: 1;
+    }
+    
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.1;
+    }
+    
+    .circle-1 {
+      width: 400px;
+      height: 400px;
+      background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+      top: -200px;
+      left: -200px;
+      animation: float 15s ease-in-out infinite;
+    }
+    
+    .circle-2 {
+      width: 300px;
+      height: 300px;
+      background: linear-gradient(135deg, #ec4899 0%, #f59e0b 100%);
+      bottom: -150px;
+      right: -150px;
+      animation: float 20s ease-in-out infinite reverse;
+    }
+    
+    .circle-3 {
+      width: 200px;
+      height: 200px;
+      background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+      top: 50%;
+      right: -100px;
+      animation: float 25s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+      25% {
+        transform: translate(50px, 50px) rotate(5deg);
+      }
+      50% {
+        transform: translate(0, 100px) rotate(10deg);
+      }
+      75% {
+        transform: translate(-50px, 50px) rotate(5deg);
+      }
+    }
+    
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes fadeInRotate {
+      to {
+        opacity: 1;
+      }
+    }
+    
+    .school-info {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 3rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s forwards 1.5s;
+    }
+    
+    .info-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #e2e8f0;
+    }
+    
+    .info-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.5rem;
+    }
+    
+    .info-text {
+      font-size: 0.875rem;
+      opacity: 0.8;
+    }
+    
+    @media (min-width: 768px) {
+      h1 {
+        font-size: 3.5rem;
+      }
+      
+      .subtitle {
+        font-size: 1.25rem;
+      }
+      
+      .handwritten-accent {
+        font-size: 2rem;
+        top: -30px;
+      }
+      
+      .school-badge {
+        width: 120px;
+        height: 120px;
+      }
+      
+      .badge-inner {
+        width: 100px;
+        height: 100px;
+        font-size: 2rem;
+      }
+    }
+
+/* News Section Category Bar */
+#news .glassmorphism {
+  background: rgba(255, 255, 250, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+#news .gradient-text {
+  background: linear-gradient(to right, #e74c3c, #f39c12);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+#news .bg-primary {
+  background-color: #e74c3c;
+}
+
+#news .bg-secondary {
+  background-color: #f39c12;
+}
+
+#news .bg-accent {
+  background-color: #8e44ad;
+}
+
+#news .text-primary {
+  color: #e74c3c;
+}
+
+#news .text-accent {
+  color: #8e44ad;
+}
+
+#news .text-secondary {
+  color: #f39c12;
+}
+
+#news .dark .text-primary {
+  color: #e74c3c;
+}
+
+#news .dark .text-secondary {
+  color: #f39c12;
+}
+
+#news .dark .text-accent {
+  color: #8e44ad;
+}
+
+#news .dark .bg-primary {
+  background-color: #e74c3c;
+}
+
+#news .dark .bg-secondary {
+  background-color: #f39c12;
+}
+
+#news .dark .bg-accent {
+  background-color: #8e44ad;
+}
+
+#news .dark .glassmorphism {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#news .dark .glassmorphism {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#news .category-icon {
+  transition: all 0.3s ease;
+}
+
+#news .category-icon:hover {
+  transform: scale(1.1);
+}
+
+#news .category-label {
+  font-size: 0.75rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+#news .category-icon:hover + .category-label {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-5px);
+}
+
+#news .category-label {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  background: #111;
+  color: #fff;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.375rem;
+  font-size: 0.75rem;
+  z-index: 10;
+}
+
+#news .category-icon:hover + .category-label {
+  opacity: 1;
+  visibility: visible;
+}
+
+#news .glassmorphism {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+#news .glassmorphism:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+#news .gradient-text {
+  background: linear-gradient(to right, #e74c3c, #f39c12);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+#news .dark .gradient-text {
+  background: linear-gradient(to right, #f39c12, #e74c3c);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+  </style>
+</head>
+<body class="font-poppins bg-gradient-to-b from-gray-50 to-gray-100 text-gray-800 dark:bg-gradient-to-b dark:from-gray-900 dark:to-gray-800 dark:text-gray-100 transition-colors duration-300">
+
+  <!-- Cursor Glow -->
+  <div class="cursor-glow hidden md:block" id="cursorGlow"></div>
+
+  <!-- Welcome Screen -->
+  <div id="welcomeScreen">
+    <div class="decorative-circles">
+      <div class="circle circle-1"></div>
+      <div class="circle circle-2"></div>
+      <div class="circle circle-3"></div>
+    </div>
+    
+    <div class="content-container">
+      <div class="school-badge">
+        <div class="badge-inner">HMV</div>
+      </div>
+      
+      <div class="title-container">
+        <span class="handwritten-accent">Est. 1932</span>
+        <h1>Homagama Maha Vidyalaya</h1>
+        <p class="subtitle">Nurturing minds, Inspiring futures</p>
+      </div>
+      
+      <button id="enterButton">
+        Enter School Portal
+      </button>
+      
+      <div class="school-info">
+        <div class="info-item">
+          <div class="info-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0e 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+          </div>
+          <div class="info-text">Established<br>1932</div>
+        </div>
+        
+        <div class="info-item">
+          <div class="info-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+          </div>
+          <div class="info-text">Contact Us<br>+94 11 2857</div>
+        </div>
+        
+        <div class="info-item">
+          <div class="info-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+          </div>
+          <div class="info-text">Excellence<br>in Education</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Skeleton Loader -->
+  <div id="skeletonLoader">
+    <!-- Ambient lighting effects -->
+    <div class="ambient-lights">
+      <div class="light light-1"></div>
+      <div class="light light-2"></div>
+      <div class="light light-3"></div>
+      <div class="light light-4"></div>
+    </div>
+    
+    <!-- Subtle particle background -->
+    <div class="particles" id="particles"></div>
+
+    <div class="loader-content">
+      <!-- First row of skeleton loaders -->
+      <div class="grid-3">
+        <div class="skeleton-item">
+          <div class="skeleton-content">
+            <div class="skeleton-header"></div>
+            <div class="skeleton-body">
+              <div class="skeleton-line"></div>
+              <div class="skeleton-line"></div>
+              <div class="skeleton-line"></div>
+            </div>
+            <div class="skeleton-footer">
+              <div class="skeleton-button"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="skeleton-item">
+          <div class="skeleton-content">
+            <div class="skeleton-header"></div>
+            <div class="skeleton-body">
+              <div class="skeleton-line"></div>
+              <div class="skeleton-line"></div>
+              <div class="skeleton-line"></div>
+            </div>
+            <div class="skeleton-footer">
+              <div class="skeleton-button"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="skeleton-item">
+          <div class="skeleton-content">
+            <div class="skeleton-header"></div>
+            <div class="skeleton-body">
+              <div class="skeleton-line"></div>
+              <div class="skeleton-line"></div>
+              <div class="skeleton-line"></div>
+            </div>
+            <div class="skeleton-footer">
+              <div class="skeleton-button"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Second row of skeleton loaders -->
+      <div class="grid-2">
+        <div class="skeleton-item small">
+          <div class="skeleton-content">
+            <div class="skeleton-header"></div>
+            <div class="skeleton-body">
+              <div class="skeleton-line"></div>
+              <div class="skeleton-line"></div>
+            </div>
+            <div class="skeleton-footer">
+              <div class="skeleton-button"></div>
+              <div class="skeleton-button"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="skeleton-item small">
+          <div class="skeleton-content">
+            <div class="skeleton-header"></div>
+            <div class="skeleton-body">
+              <div class="skeleton-line"></div>
+              <div class="skeleton-line"></div>
+            </div>
+            <div class="skeleton-footer">
+              <div class="skeleton-button"></div>
+              <div class="skeleton-button"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loading indicator text -->
+      <div class="loading-text">
+        Loading content
+        <div class="loading-dots">
+          <div class="loading-dot"></div>
+          <div class="loading-dot"></div>
+          <div class="loading-dot"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Progress bar at bottom -->
+    <div class="progress-container">
+      <div class="progress-bar"></div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div id="mainContent" class="hidden">
+    <!-- Header -->
+    <header class="sticky top-0 z-30 bg-gradient-to-r from-primary/90 to-red-600/90 dark:from-gray-800/95 dark:to-gray-900/95 backdrop-blur-lg shadow-lg transition-all duration-500">
+      <!-- Decorative header elements -->
+      <div class="absolute inset-0 overflow-hidden">
+        <div class="absolute -top-8 -left-8 w-24 h-24 bg-primary/20 rounded-full blur-xl"></div>
+        <div class="absolute -bottom-4 -right-4 w-20 h-20 bg-secondary/20 rounded-full blur-xl"></div>
+        <div class="absolute top-1/2 left-1/4 w-6 h-6 bg-white/10 rounded-full blur-sm animate-float"></div>
+      </div>
+      
+      <div class="container mx-auto px-4 py-4 flex justify-between items-center relative z-10">
+        <div class="flex items-center group">
+          <div class="relative overflow-hidden rounded-full mr-3 border-2 border-white/20 p-0.5 shadow-lg transition-all duration-300 group-hover:border-white/40 group-hover:shadow-primary/30">
+            <img src="https://via.placeholder.com/50" alt="School Logo" class="h-10 w-10 rounded-full transition-transform duration-700 group-hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-r from-primary/40 to-secondary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full"></div>
+          </div>
+          <div>
+            <h1 class="text-xl font-bold text-white relative overflow-hidden group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-300 transition-all duration-500">
+              Homagama Maha Vidyalaya
+              <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-primary/70 to-secondary/70 group-hover:w-full transition-all duration-700"></span>
+            </h1>
+            <span class="text-xs text-white/70 opacity-0 -translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 absolute">Excellence in Education</span>
+          </div>
+        </div>
+
+        <nav class="hidden md:flex space-x-6">
+          <div class="group relative">
+            <a href="#home" class="text-white hover:text-gray-200 font-medium relative group flex items-center gap-1 transition-colors">
+              <span class="text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute -left-4">•</span>
+              Home
+              <span class="absolute left-0 bottom-0 w-0 h-0.5 bg-gradient-to-r from-primary/70 to-secondary/70 group-hover:w-full transition-all duration-300"></span>
+            </a>
+            <div class="hidden group-hover:block absolute left-0 top-full mt-2 bg-white/10 backdrop-blur-xl rounded-xl border border-white/10 shadow-xl p-4 space-y-2 min-w-[200px] transform origin-top scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-200">
+              <a href="#about" class="block text-white hover:text-gray-200 hover:pl-2 transition-all duration-200 flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-primary/70"></span>
+                About
+              </a>
+              <a href="#staff" class="block text-white hover:text-gray-200 hover:pl-2 transition-all duration-200 flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-secondary/70"></span>
+                Staff
+              </a>
+              <a href="#gallery" class="block text-white hover:text-gray-200 hover:pl-2 transition-all duration-200 flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-accent/70"></span>
+                Gallery
+              </a>
+            </div>
+          </div>
+
+          <div class="group relative">
+            <a href="#about" class="text-white hover:text-gray-200 font-medium relative group flex items-center gap-1 transition-colors">
+              <span class="text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute -left-4">•</span>
+              About
+              <span class="absolute left-0 bottom-0 w-0 h-0.5 bg-gradient-to-r from-primary/70 to-secondary/70 group-hover:w-full transition-all duration-300"></span>
+            </a>
+            <div class="hidden group-hover:block absolute left-0 top-full mt-2 bg-white/10 backdrop-blur-xl rounded-xl border border-white/10 shadow-xl p-4 space-y-2 min-w-[200px] transform origin-top scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-200">
+              <a href="#academic-programs" class="block text-white hover:text-gray-200 hover:pl-2 transition-all duration-200 flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-primary/70"></span>
+                Academic Programs
+              </a>
+              <a href="#facilities" class="block text-white hover:text-gray-200 hover:pl-2 transition-all duration-200 flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-secondary/70"></span>
+                Facilities
+              </a>
+              <a href="#extracurricular" class="block text-white hover:text-gray-200 hover:pl-2 transition-all duration-200 flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-accent/70"></span>
+                Extracurricular
+              </a>
+            </div>
+          </div>
+
+          <div class="group relative">
+            <a href="#staff" class="text-white hover:text-gray-200 font-medium relative group flex items-center gap-1 transition-colors">
+              <span class="text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute -left-4">•</span>
+              Staff
+              <span class="absolute left-0 bottom-0 w-0 h-0.5 bg-gradient-to-r from-primary/70 to-secondary/70 group-hover:w-full transition-all duration-300"></span>
+            </a>
+            <div class="hidden group-hover:block absolute left-0 top-full mt-2 bg-white/10 backdrop-blur-xl rounded-xl border border-white/10 shadow-xl p-4 space-y-2 min-w-[200px] transform origin-top scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-200">
+              <a href="#principal" class="block text-white hover:text-gray-200 hover:pl-2 transition-all duration-200 flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-primary/70"></span>
+                Principal
+              </a>
+              <a href="#vice-principal" class="block text-white hover:text-gray-200 hover:pl-2 transition-all duration-200 flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-secondary/70"></span>
+                Vice Principal
+              </a>
+              <a href="#science-head" class="block text-white hover:text-gray-200 hover:pl-2 transition-all duration-200 flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-accent/70"></span>
+                Science Head
+              </a>
+            </div>
+          </div>
+
+          <a href="#gallery" class="text-white hover:text-gray-200 font-medium relative group flex items-center gap-1 transition-colors">
+            <span class="text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute -left-4">•</span>
+            Gallery
+            <span class="absolute left-0 bottom-0 w-0 h-0.5 bg-gradient-to-r from-primary/70 to-secondary/70 group-hover:w-full transition-all duration-300"></span>
+          </a>
+          <a href="#news" class="text-white hover:text-gray-200 font-medium relative group flex items-center gap-1 transition-colors">
+            <span class="text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute -left-4">•</span>
+            News
+            <span class="absolute left-0 bottom-0 w-0 h-0.5 bg-gradient-to-r from-primary/70 to-secondary/70 group-hover:w-full transition-all duration-300"></span>
+          </a>
+          <a href="#contact" class="text-white hover:text-gray-200 font-medium relative group flex items-center gap-1 transition-colors">
+            <span class="text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute -left-4">•</span>
+            Contact
+            <span class="absolute left-0 bottom-0 w-0 h-0.5 bg-gradient-to-r from-primary/70 to-secondary/70 group-hover:w-full transition-all duration-300"></span>
+          </a>
+        </nav>
+
+        <div class="flex items-center space-x-4">
+          <button id="darkModeToggle" class="relative text-white hover:text-gray-200 transition-colors p-2 overflow-hidden group">
+            <span class="absolute inset-0 bg-white/10 rounded-full scale-0 group-hover:scale-100 transition-transform duration-300"></span>
+            <i class="fas fa-moon text-lg relative z-10" id="darkModeIcon"></i>
+          </button>
+          <button id="mobileMenuButton" class="md:hidden relative text-white hover:text-gray-200 transition-colors p-2 overflow-hidden group">
+            <span class="absolute inset-0 bg-white/10 rounded-full scale-0 group-hover:scale-100 transition-transform duration-300"></span>
+            <i class="fas fa-bars text-lg relative z-10"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobileMenu" class="hidden md:hidden bg-gradient-to-b from-primary/90 to-red-700/90 dark:from-gray-800/95 dark:to-gray-900/95 backdrop-blur-xl absolute top-full left-0 right-0 shadow-xl border-t border-white/10 transform origin-top transition-all duration-300 scale-y-0 opacity-0">
+        <div class="container mx-auto px-4 py-3 flex flex-col space-y-3">
+          <a href="#home" class="text-white hover:text-gray-200 font-medium py-2 transition-all duration-200 hover:pl-2 flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-primary/70"></span>
+            Home
+          </a>
+          <a href="#about" class="text-white hover:text-gray-200 font-medium py-2 transition-all duration-200 hover:pl-2 flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-secondary/70"></span>
+            About
+          </a>
+          <a href="#staff" class="text-white hover:text-gray-200 font-medium py-2 transition-all duration-200 hover:pl-2 flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-accent/70"></span>
+            Staff
+          </a>
+          <a href="#gallery" class="text-white hover:text-gray-200 font-medium py-2 transition-all duration-200 hover:pl-2 flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-primary/70"></span>
+            Gallery
+          </a>
+          <a href="#news" class="text-white hover:text-gray-200 font-medium py-2 transition-all duration-200 hover:pl-2 flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-secondary/70"></span>
+            News
+          </a>
+          <a href="#contact" class="text-white hover:text-gray-200 font-medium py-2 transition-all duration-200 hover:pl-2 flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-accent/70"></span>
+            Contact
+          </a>
+          <div class="flex justify-center mt-4 space-x-6">
+            <a href="#" class="text-white hover:text-gray-200 transition-all duration-300 hover:scale-125 relative group">
+              <span class="absolute inset-0 bg-gradient-to-r from-primary/40 to-secondary/40 rounded-full scale-0 group-hover:scale-100 transition-transform duration-300"></span>
+              <i class="fab fa-facebook-f relative z-10"></i>
+            </a>
+            <a href="#" class="text-white hover:text-gray-200 transition-all duration-300 hover:scale-125 relative group">
+              <span class="absolute inset-0 bg-gradient-to-r from-primary/40 to-secondary/40 rounded-full scale-0 group-hover:scale-100 transition-transform duration-300"></span>
+              <i class="fab fa-instagram relative z-10"></i>
+            </a>
+            <a href="#" class="text-white hover:text-gray-200 transition-all duration-300 hover:scale-125 relative group">
+              <span class="absolute inset-0 bg-gradient-to-r from-primary/40 to-secondary/40 rounded-full scale-0 group-hover:scale-100 transition-transform duration-300"></span>
+              <i class="fab fa-youtube relative z-10"></i>
+            </a>
+            <a href="#" class="text-white hover:text-gray-200 transition-all duration-300 hover:scale-125 relative group">
+              <span class="absolute inset-0 bg-gradient-to-r from-primary/40 to-secondary/40 rounded-full scale-0 group-hover:scale-100 transition-transform duration-300"></span>
+              <i class="fab fa-linkedin-in relative z-10"></i>
+            </a>
+          </div>
+          <button id="mobileDarkModeToggle" class="text-white hover:text-gray-200 transition-colors self-center relative p-2 overflow-hidden group">
+            <span class="absolute inset-0 bg-white/10 rounded-full scale-0 group-hover:scale-100 transition-transform duration-300"></span>
+            <i class="fas fa-moon text-lg relative z-10" id="mobileDarkModeIcon"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+      <!-- Enhanced background elements -->
+      <canvas id="heroParticles" class="absolute inset-0 z-0"></canvas>
+      
+      <!-- Decorative elements -->
+      <div class="absolute inset-0 z-5 overflow-hidden pointer-events-none">
+        <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-float opacity-60"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-secondary/10 rounded-full blur-3xl animate-float opacity-60" style="animation-delay: -5s;"></div>
+        <div class="absolute top-3/4 left-1/3 w-40 h-40 bg-accent/10 rounded-full blur-3xl animate-float opacity-60" style="animation-delay: -10s;"></div>
+        
+        <!-- Floating particles -->
+        <div class="absolute inset-0">
+          <div class="absolute top-1/4 left-1/5 w-1 h-1 bg-white rounded-full animate-float opacity-70" style="animation-duration: 15s;"></div>
+          <div class="absolute top-1/3 right-1/4 w-1.5 h-1.5 bg-white rounded-full animate-float opacity-70" style="animation-duration: 25s; animation-delay: -5s;"></div>
+          <div class="absolute bottom-1/4 left-1/3 w-1 h-1 bg-white rounded-full animate-float opacity-70" style="animation-duration: 20s; animation-delay: -10s;"></div>
+          <div class="absolute top-2/3 right-1/3 w-2 h-2 bg-white rounded-full animate-float opacity-70" style="animation-duration: 18s; animation-delay: -7s;"></div>
+        </div>
+      </div>
+      
+      <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/60 z-10"></div>
+      
+      <!-- Main content -->
+      <div class="relative z-20 text-center px-4 max-w-6xl">
+        <!-- School badge -->
+        <div class="inline-block mb-6 relative">
+          <div class="w-20 h-20 md:w-24 md:h-24 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20 shadow-lg overflow-hidden group">
+            <div class="absolute inset-0 bg-gradient-to-r from-primary/30 to-secondary/30 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+            <span class="text-2xl md:text-3xl font-bold text-white relative z-10 group-hover:scale-110 transition-transform duration-500">HMV</span>
+          </div>
+          <div class="absolute -bottom-2 -right-2 w-8 h-8 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20 shadow-lg">
+            <span class="text-xs font-bold text-white">Est.<br>19XX</span>
+          </div>
+        </div>
+        
+        <!-- Main heading with enhanced animation -->
+        <h1 id="typedText" class="text-4xl md:text-6xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300 drop-shadow-lg"></h1>
+        
+        <!-- Subtitle with animated underline -->
+        <div class="relative inline-block mb-8">
+          <p class="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed">
+            Fostering academic excellence and character development since 19XX.<br>
+            <span class="text-white/80 italic">Join us in shaping the future leaders of Sri Lanka.</span>
+          </p>
+          <span class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-24 h-0.5 bg-gradient-to-r from-primary/70 to-secondary/70"></span>
+        </div>
+        
+        <!-- Enhanced CTA buttons -->
+        <div class="flex flex-wrap justify-center gap-6">
+          <a href="#about" class="group relative px-8 py-4 rounded-full overflow-hidden">
+            <!-- Button background with animated gradient -->
+            <span class="absolute inset-0 bg-gradient-to-r from-primary to-red-600 group-hover:scale-105 transition-transform duration-500"></span>
+            <!-- Shine effect on hover -->
+            <span class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full ease-in-out" style="transition-property: opacity, transform; transition-duration: 1.5s;"></span>
+            <!-- Button text and icon -->
+            <span class="relative flex items-center justify-center gap-2 text-white font-semibold">
+              <span>Discover More</span>
+              <i class="fas fa-arrow-right text-sm opacity-0 -translate-x-6 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300"></i>
+            </span>
+          </a>
+          
+          <a href="#contact" class="group relative px-8 py-4 rounded-full overflow-hidden">
+            <!-- Button background with animated border -->
+            <span class="absolute inset-0 bg-white/10 backdrop-blur-md border border-white/30 group-hover:border-white/50 group-hover:bg-white/20 transition-all duration-500"></span>
+            <!-- Button text and icon -->
+            <span class="relative flex items-center justify-center gap-2 text-white font-semibold">
+              <span>Admissions</span>
+              <i class="fas fa-graduation-cap text-sm opacity-0 -translate-x-6 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300"></i>
+            </span>
+          </a>
+        </div>
+        
+        <!-- School stats -->
+        <div class="mt-16 flex flex-wrap justify-center gap-8 opacity-0 translate-y-8 animate-[fadeInUp_1s_ease_forwards_1.5s]">
+          <div class="flex flex-col items-center">
+            <span class="text-3xl font-bold text-white mb-1">75+</span>
+            <span class="text-sm text-white/70">Years of Excellence</span>
+          </div>
+          <div class="flex flex-col items-center">
+            <span class="text-3xl font-bold text-white mb-1">5000+</span>
+            <span class="text-sm text-white/70">Alumni Worldwide</span>
+          </div>
+          <div class="flex flex-col items-center">
+            <span class="text-3xl font-bold text-white mb-1">98%</span>
+            <span class="text-sm text-white/70">Success Rate</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Enhanced Glassmorphism Intro Card -->
+      <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 max-w-md w-full mx-4 group">
+        <div class="glassmorphism rounded-xl p-6 shadow-lg backdrop-blur-xl bg-white/10 border border-white/20 relative overflow-hidden transition-all duration-500 group-hover:bg-white/15 group-hover:border-white/30 group-hover:shadow-xl">
+          <!-- Decorative corner elements -->
+          <div class="absolute top-0 left-0 w-12 h-12 overflow-hidden">
+            <div class="absolute top-0 left-0 w-16 h-0.5 bg-gradient-to-r from-primary/70 to-transparent transform origin-left rotate-0"></div>
+            <div class="absolute top-0 left-0 w-0.5 h-16 bg-gradient-to-b from-primary/70 to-transparent transform origin-top rotate-0"></div>
+          </div>
+          <div class="absolute bottom-0 right-0 w-12 h-12 overflow-hidden">
+            <div class="absolute bottom-0 right-0 w-16 h-0.5 bg-gradient-to-l from-secondary/70 to-transparent transform origin-right rotate-0"></div>
+            <div class="absolute bottom-0 right-0 w-0.5 h-16 bg-gradient-to-t from-secondary/70 to-transparent transform origin-bottom rotate-0"></div>
+          </div>
+          
+          <!-- Card content -->
+          <div class="flex items-start gap-4">
+            <div class="bg-gradient-to-br from-primary/20 to-secondary/20 rounded-lg p-2 mt-1">
+              <i class="fas fa-calendar-alt text-white text-xl"></i>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-lg font-semibold gradient-text bg-gradient-to-r from-yellow-300 via-red-300 to-pink-300 mb-2 flex items-center gap-2">
+                Upcoming Event
+                <span class="bg-primary/80 text-white text-xs px-2 py-0.5 rounded-full">New</span>
+              </h3>
+              <p class="text-white/90 mb-3">Annual Sports Meet 2023 - December 15th</p>
+              <div class="flex justify-between items-center">
+                <span class="text-xs text-white/70"><i class="fas fa-map-marker-alt mr-1"></i> School Grounds</span>
+                <button class="text-white/80 hover:text-white text-sm flex items-center gap-1 group-hover:translate-x-1 transition-transform duration-300">
+                  View Details <i class="fas fa-arrow-right text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <!-- About Section -->
+    <section id="about" class="py-20 px-4 relative overflow-hidden">
+      <!-- Animated Background Elements -->
+      <div class="absolute inset-0 overflow-hidden">
+        <div class="particles">
+          <div class="particle bg-primary/10 w-24 h-24 rounded-full absolute top-20 left-[10%] animate-float" style="animation-delay: 0s;"></div>
+          <div class="particle bg-secondary/10 w-32 h-32 rounded-full absolute bottom-40 right-[15%] animate-float" style="animation-delay: -2s;"></div>
+          <div class="particle bg-accent/10 w-16 h-16 rounded-full absolute top-1/2 left-[20%] animate-float" style="animation-delay: -4s;"></div>
+          <div class="particle bg-primary/5 w-40 h-40 rounded-full absolute bottom-20 left-[5%] animate-breathe" style="animation-delay: -1s;"></div>
+        </div>
+      </div>
+      
+      <div class="container mx-auto max-w-6xl relative z-10">
+        <!-- Enhanced Section Title -->
+        <div class="relative mb-20 text-center">
+          <h2 class="text-3xl md:text-5xl font-bold text-center mb-4 gradient-text bg-gradient-to-r from-primary via-red-500 to-secondary inline-block">
+            Our Legacy
+          </h2>
+          <div class="h-1 w-24 mx-auto bg-gradient-to-r from-primary to-secondary rounded-full mt-2 animate-pulse"></div>
+          <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mt-6 text-center">
+            Building a foundation of excellence, character, and innovation since our establishment
+          </p>
+        </div>
+        
+        <!-- Enhanced Cards with Animation -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Card 1 - Academic Excellence -->
+          <div class="group">
+            <div class="glassmorphism rounded-xl p-8 shadow-lg transition-all duration-500 h-full
+                        backdrop-blur-lg bg-white/10 dark:bg-gray-900/20 border border-white/20 dark:border-gray-700/20
+                        hover:shadow-2xl hover:bg-white/20 dark:hover:bg-gray-800/30 hover:scale-105 hover:-translate-y-2">
+              <div class="relative">
+                <!-- Decorative Corner Element -->
+                <div class="absolute -top-2 -left-2 w-10 h-10 border-t-2 border-l-2 border-primary/70 rounded-tl-lg"></div>
+                
+                <!-- Icon with Animation -->
+                <div class="text-primary text-5xl mb-6 transform transition-all duration-500 group-hover:scale-110 group-hover:text-primary/90">
+                  <i class="fas fa-graduation-cap"></i>
+                </div>
+                
+                <!-- Content -->
+                <h3 class="text-2xl font-bold mb-4 group-hover:text-primary transition-colors duration-300">Academic Excellence</h3>
+                <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                  Consistently ranked among the top schools in the region with a 98% pass rate in national examinations. Our students regularly achieve distinction in competitive assessments.
+                </p>
+                
+                <!-- Stat Counter -->
+                <div class="mt-6 flex items-center justify-between border-t border-gray-200 dark:border-gray-700 pt-4">
+                  <div>
+                    <span class="text-3xl font-bold text-primary">98%</span>
+                    <span class="text-sm text-gray-500 dark:text-gray-400 ml-1">Pass Rate</span>
+                  </div>
+                  <div class="text-gray-400 group-hover:text-primary transition-colors duration-300">
+                    <i class="fas fa-arrow-right"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2 - Holistic Development -->
+          <div class="group">
+            <div class="glassmorphism rounded-xl p-8 shadow-lg transition-all duration-500 h-full
+                        backdrop-blur-lg bg-white/10 dark:bg-gray-900/20 border border-white/20 dark:border-gray-700/20
+                        hover:shadow-2xl hover:bg-white/20 dark:hover:bg-gray-800/30 hover:scale-105 hover:-translate-y-2">
+              <div class="relative">
+                <!-- Decorative Corner Element -->
+                <div class="absolute -top-2 -left-2 w-10 h-10 border-t-2 border-l-2 border-secondary/70 rounded-tl-lg"></div>
+                
+                <!-- Icon with Animation -->
+                <div class="text-secondary text-5xl mb-6 transform transition-all duration-500 group-hover:scale-110 group-hover:text-secondary/90">
+                  <i class="fas fa-users"></i>
+                </div>
+                
+                <!-- Content -->
+                <h3 class="text-2xl font-bold mb-4 group-hover:text-secondary transition-colors duration-300">Holistic Development</h3>
+                <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                  Comprehensive programs nurture intellectual, physical, emotional, and social growth. We believe in developing well-rounded individuals prepared for life's challenges.
+                </p>
+                
+                <!-- Programs Counter -->
+                <div class="mt-6 flex items-center justify-between border-t border-gray-200 dark:border-gray-700 pt-4">
+                  <div>
+                    <span class="text-3xl font-bold text-secondary">25+</span>
+                    <span class="text-sm text-gray-500 dark:text-gray-400 ml-1">Programs</span>
+                  </div>
+                  <div class="text-gray-400 group-hover:text-secondary transition-colors duration-300">
+                    <i class="fas fa-arrow-right"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3 - Community Values -->
+          <div class="group">
+            <div class="glassmorphism rounded-xl p-8 shadow-lg transition-all duration-500 h-full
+                        backdrop-blur-lg bg-white/10 dark:bg-gray-900/20 border border-white/20 dark:border-gray-700/20
+                        hover:shadow-2xl hover:bg-white/20 dark:hover:bg-gray-800/30 hover:scale-105 hover:-translate-y-2">
+              <div class="relative">
+                <!-- Decorative Corner Element -->
+                <div class="absolute -top-2 -left-2 w-10 h-10 border-t-2 border-l-2 border-accent/70 rounded-tl-lg"></div>
+                
+                <!-- Icon with Animation -->
+                <div class="text-accent text-5xl mb-6 transform transition-all duration-500 group-hover:scale-110 group-hover:text-accent/90">
+                  <i class="fas fa-heart"></i>
+                </div>
+                
+                <!-- Content -->
+                <h3 class="text-2xl font-bold mb-4 group-hover:text-accent transition-colors duration-300">Community Values</h3>
+                <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                  Instilling strong moral values and a sense of responsibility towards society and the nation. Our students participate in regular community service initiatives.
+                </p>
+                
+                <!-- Community Projects Counter -->
+                <div class="mt-6 flex items-center justify-between border-t border-gray-200 dark:border-gray-700 pt-4">
+                  <div>
+                    <span class="text-3xl font-bold text-accent">40+</span>
+                    <span class="text-sm text-gray-500 dark:text-gray-400 ml-1">Projects</span>
+                  </div>
+                  <div class="text-gray-400 group-hover:text-accent transition-colors duration-300">
+                    <i class="fas fa-arrow-right"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Enhanced History Section -->
+        <div class="mt-24 relative">
+          <!-- Decorative Elements -->
+          <div class="absolute -top-10 -left-10 w-20 h-20 bg-primary/5 rounded-full blur-xl"></div>
+          <div class="absolute -bottom-10 -right-10 w-20 h-20 bg-secondary/5 rounded-full blur-xl"></div>
+          
+          <div class="glassmorphism rounded-xl p-0 shadow-xl overflow-hidden backdrop-blur-xl bg-white/10 dark:bg-gray-900/20 border border-white/20 dark:border-gray-700/20">
+            <div class="flex flex-col md:flex-row">
+              <!-- Image Side with Overlay -->
+              <div class="md:w-1/2 relative group overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-r from-primary/40 to-secondary/40 opacity-60 z-10 transition-opacity duration-500 group-hover:opacity-40"></div>
+                <img src="https://via.placeholder.com/600x400" alt="School History" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                <!-- Year Badge -->
+                <div class="absolute top-4 left-4 bg-white/90 dark:bg-gray-800/90 text-primary font-bold py-1 px-3 rounded-full text-sm z-20 shadow-lg">
+                  Since 19XX
+                </div>
+              </div>
+              
+              <!-- Content Side -->
+              <div class="md:w-1/2 p-8 md:p-10 flex flex-col justify-center">
+                <h3 class="text-3xl font-bold mb-6 gradient-text bg-gradient-to-r from-primary via-red-500 to-secondary inline-block">
+                  Our History
+                </h3>
+                
+                <!-- Timeline Indicator -->
+                <div class="flex items-center mb-6">
+                  <div class="w-3 h-3 rounded-full bg-primary"></div>
+                  <div class="h-0.5 flex-grow bg-gradient-to-r from-primary to-transparent ml-2"></div>
+                </div>
+                
+                <p class="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
+                  Established in 19XX, Homagama Maha Vidyalaya has grown from a small village school to a premier educational institution with state-of-the-art facilities and a reputation for excellence.
+                </p>
+                <p class="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
+                  Our alumni include renowned professionals, artists, and leaders who contribute to society in meaningful ways across various fields and disciplines.
+                </p>
+                
+                <!-- Stats Row -->
+                <div class="grid grid-cols-3 gap-4 mb-8">
+                  <div class="text-center">
+                    <div class="text-2xl md:text-3xl font-bold text-primary">75+</div>
+                    <div class="text-xs md:text-sm text-gray-500 dark:text-gray-400">Years</div>
+                  </div>
+                  <div class="text-center">
+                    <div class="text-2xl md:text-3xl font-bold text-secondary">15K+</div>
+                    <div class="text-xs md:text-sm text-gray-500 dark:text-gray-400">Alumni</div>
+                  </div>
+                  <div class="text-center">
+                    <div class="text-2xl md:text-3xl font-bold text-accent">200+</div>
+                    <div class="text-xs md:text-sm text-gray-500 dark:text-gray-400">Awards</div>
+                  </div>
+                </div>
+                
+                <!-- Enhanced Button -->
+                <button class="group relative overflow-hidden mt-4 px-8 py-3 rounded-full bg-gradient-to-r from-primary to-red-600 text-white font-medium shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                  <span class="relative z-10 flex items-center justify-center">
+                    Learn More
+                    <i class="fas fa-arrow-right ml-2 transform transition-transform duration-300 group-hover:translate-x-1"></i>
+                  </span>
+                  <span class="absolute inset-0 bg-gradient-to-r from-red-600 to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Staff Section -->
+    <section id="staff" class="py-20 px-4 relative overflow-hidden">
+      <!-- Animated Background Elements -->
+      <div class="absolute inset-0 bg-gradient-to-b from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 -z-10"></div>
+      <div class="absolute inset-0 overflow-hidden -z-5">
+        <div class="particles">
+          <div class="particle bg-primary/10 w-24 h-24 rounded-full absolute top-20 left-[10%] animate-float" style="animation-delay: 0s;"></div>
+          <div class="particle bg-secondary/10 w-32 h-32 rounded-full absolute bottom-40 right-[15%] animate-float" style="animation-delay: -2s;"></div>
+          <div class="particle bg-accent/10 w-16 h-16 rounded-full absolute top-1/2 left-[20%] animate-float" style="animation-delay: -4s;"></div>
+          <div class="particle bg-primary/5 w-40 h-40 rounded-full absolute bottom-20 left-[5%] animate-breathe" style="animation-delay: -1s;"></div>
+        </div>
+      </div>
+      
+      <div class="container mx-auto max-w-6xl relative z-10">
+        <!-- Enhanced Section Title -->
+        <div class="relative mb-20 text-center">
+          <h2 class="text-3xl md:text-5xl font-bold text-center mb-4 gradient-text bg-gradient-to-r from-primary via-red-500 to-secondary inline-block">
+            Our Leadership
+          </h2>
+          <div class="h-1 w-24 mx-auto bg-gradient-to-r from-primary to-secondary rounded-full mt-2 animate-pulse"></div>
+          <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mt-6 text-center">
+            Meet the dedicated team guiding our institution towards excellence
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <!-- Principal - Enhanced with Glassmorphism -->
+          <div class="staff-card group">
+            <div class="glassmorphism rounded-xl p-8 shadow-lg transition-all duration-500 h-full
+                        backdrop-blur-lg bg-white/20 dark:bg-gray-900/20 border border-white/20 dark:border-gray-700/20
+                        hover:shadow-2xl hover:bg-white/30 dark:hover:bg-gray-800/30 hover:scale-105 hover:-translate-y-2">
+              <div class="flex flex-col items-center">
+                <!-- Decorative Corner Element -->
+                <div class="absolute -top-2 -left-2 w-10 h-10 border-t-2 border-l-2 border-primary/70 rounded-tl-lg"></div>
+                <div class="absolute -bottom-2 -right-2 w-10 h-10 border-b-2 border-r-2 border-primary/70 rounded-br-lg"></div>
+                
+                <!-- Enhanced Image Container -->
+                <div class="relative mb-8 group-hover:scale-105 transition-transform duration-500">
+                  <div class="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-full opacity-0 group-hover:opacity-20 transition-opacity duration-500"></div>
+                  <img src="https://via.placeholder.com/150" alt="Principal" class="h-36 w-36 rounded-full object-cover ring-4 ring-primary/80 ring-offset-2 transition-all duration-500 group-hover:ring-secondary/80">
+                  <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-primary to-secondary text-white px-4 py-1 rounded-full text-sm font-bold shadow-lg">
+                    Principal
+                  </div>
+                </div>
+                
+                <!-- Enhanced Content -->
+                <h3 class="text-2xl font-bold mb-1 group-hover:text-primary transition-colors duration-300">Mr. K. B. Perera</h3>
+                <p class="text-gray-500 dark:text-gray-400 mb-4 italic">M.Ed, B.Sc</p>
+                
+                <!-- Divider -->
+                <div class="w-16 h-0.5 bg-gradient-to-r from-primary/50 to-secondary/50 rounded-full mb-4"></div>
+                
+                <p class="text-gray-700 dark:text-gray-300 text-center mb-6 leading-relaxed">
+                  With 25+ years of experience, Mr. Perera leads with vision and dedication to educational excellence.
+                </p>
+                
+                <!-- Enhanced Social Links -->
+                <div class="flex space-x-4">
+                  <a href="#" class="social-icon-container">
+                    <div class="social-icon bg-gray-100 dark:bg-gray-800 hover:bg-gradient-to-r hover:from-primary/80 hover:to-secondary/80 text-gray-500 hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 shadow-sm hover:shadow-md">
+                      <i class="fas fa-envelope"></i>
+                    </div>
+                  </a>
+                  <a href="#" class="social-icon-container">
+                    <div class="social-icon bg-gray-100 dark:bg-gray-800 hover:bg-gradient-to-r hover:from-primary/80 hover:to-secondary/80 text-gray-500 hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 shadow-sm hover:shadow-md">
+                      <i class="fab fa-linkedin"></i>
+                    </div>
+                  </a>
+                  <a href="#" class="social-icon-container">
+                    <div class="social-icon bg-gray-100 dark:bg-gray-800 hover:bg-gradient-to-r hover:from-primary/80 hover:to-secondary/80 text-gray-500 hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 shadow-sm hover:shadow-md">
+                      <i class="fas fa-phone"></i>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Vice Principal - Enhanced with Glassmorphism -->
+          <div class="staff-card group">
+            <div class="glassmorphism rounded-xl p-8 shadow-lg transition-all duration-500 h-full
+                        backdrop-blur-lg bg-white/20 dark:bg-gray-900/20 border border-white/20 dark:border-gray-700/20
+                        hover:shadow-2xl hover:bg-white/30 dark:hover:bg-gray-800/30 hover:scale-105 hover:-translate-y-2">
+              <div class="flex flex-col items-center">
+                <!-- Decorative Corner Element -->
+                <div class="absolute -top-2 -left-2 w-10 h-10 border-t-2 border-l-2 border-secondary/70 rounded-tl-lg"></div>
+                <div class="absolute -bottom-2 -right-2 w-10 h-10 border-b-2 border-r-2 border-secondary/70 rounded-br-lg"></div>
+                
+                <!-- Enhanced Image Container -->
+                <div class="relative mb-8 group-hover:scale-105 transition-transform duration-500">
+                  <div class="absolute inset-0 bg-gradient-to-r from-secondary to-accent rounded-full opacity-0 group-hover:opacity-20 transition-opacity duration-500"></div>
+                  <img src="https://via.placeholder.com/150" alt="Vice Principal" class="h-36 w-36 rounded-full object-cover ring-4 ring-secondary/80 ring-offset-2 transition-all duration-500 group-hover:ring-accent/80">
+                  <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-secondary to-accent text-white px-4 py-1 rounded-full text-sm font-bold shadow-lg">
+                    Vice Principal
+                  </div>
+                </div>
+                
+                <!-- Enhanced Content -->
+                <h3 class="text-2xl font-bold mb-1 group-hover:text-secondary transition-colors duration-300">Mrs. S. M. Fernando</h3>
+                <p class="text-gray-500 dark:text-gray-400 mb-4 italic">M.Ed, B.A</p>
+                
+                <!-- Divider -->
+                <div class="w-16 h-0.5 bg-gradient-to-r from-secondary/50 to-accent/50 rounded-full mb-4"></div>
+                
+                <p class="text-gray-700 dark:text-gray-300 text-center mb-6 leading-relaxed">
+                  Specializing in student welfare and academic development with a focus on holistic education.
+                </p>
+                
+                <!-- Enhanced Social Links -->
+                <div class="flex space-x-4">
+                  <a href="#" class="social-icon-container">
+                    <div class="social-icon bg-gray-100 dark:bg-gray-800 hover:bg-gradient-to-r hover:from-secondary/80 hover:to-accent/80 text-gray-500 hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 shadow-sm hover:shadow-md">
+                      <i class="fas fa-envelope"></i>
+                    </div>
+                  </a>
+                  <a href="#" class="social-icon-container">
+                    <div class="social-icon bg-gray-100 dark:bg-gray-800 hover:bg-gradient-to-r hover:from-secondary/80 hover:to-accent/80 text-gray-500 hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 shadow-sm hover:shadow-md">
+                      <i class="fab fa-linkedin"></i>
+                    </div>
+                  </a>
+                  <a href="#" class="social-icon-container">
+                    <div class="social-icon bg-gray-100 dark:bg-gray-800 hover:bg-gradient-to-r hover:from-secondary/80 hover:to-accent/80 text-gray-500 hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 shadow-sm hover:shadow-md">
+                      <i class="fas fa-phone"></i>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Head of Science - Enhanced with Glassmorphism -->
+          <div class="staff-card group">
+            <div class="glassmorphism rounded-xl p-8 shadow-lg transition-all duration-500 h-full
+                        backdrop-blur-lg bg-white/20 dark:bg-gray-900/20 border border-white/20 dark:border-gray-700/20
+                        hover:shadow-2xl hover:bg-white/30 dark:hover:bg-gray-800/30 hover:scale-105 hover:-translate-y-2">
+              <div class="flex flex-col items-center">
+                <!-- Decorative Corner Element -->
+                <div class="absolute -top-2 -left-2 w-10 h-10 border-t-2 border-l-2 border-accent/70 rounded-tl-lg"></div>
+                <div class="absolute -bottom-2 -right-2 w-10 h-10 border-b-2 border-r-2 border-accent/70 rounded-br-lg"></div>
+                
+                <!-- Enhanced Image Container -->
+                <div class="relative mb-8 group-hover:scale-105 transition-transform duration-500">
+                  <div class="absolute inset-0 bg-gradient-to-r from-accent to-primary rounded-full opacity-0 group-hover:opacity-20 transition-opacity duration-500"></div>
+                  <img src="https://via.placeholder.com/150" alt="Head of Science" class="h-36 w-36 rounded-full object-cover ring-4 ring-accent/80 ring-offset-2 transition-all duration-500 group-hover:ring-primary/80">
+                  <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-accent to-primary text-white px-4 py-1 rounded-full text-sm font-bold shadow-lg">
+                    Head of Science
+                  </div>
+                </div>
+                
+                <!-- Enhanced Content -->
+                <h3 class="text-2xl font-bold mb-1 group-hover:text-accent transition-colors duration-300">Mr. R. P. Silva</h3>
+                <p class="text-gray-500 dark:text-gray-400 mb-4 italic">M.Sc, B.Sc</p>
+                
+                <!-- Divider -->
+                <div class="w-16 h-0.5 bg-gradient-to-r from-accent/50 to-primary/50 rounded-full mb-4"></div>
+                
+                <p class="text-gray-700 dark:text-gray-300 text-center mb-6 leading-relaxed">
+                  Leading our award-winning science department with innovative teaching methods and research initiatives.
+                </p>
+                
+                <!-- Enhanced Social Links -->
+                <div class="flex space-x-4">
+                  <a href="#" class="social-icon-container">
+                    <div class="social-icon bg-gray-100 dark:bg-gray-800 hover:bg-gradient-to-r hover:from-accent/80 hover:to-primary/80 text-gray-500 hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 shadow-sm hover:shadow-md">
+                      <i class="fas fa-envelope"></i>
+                    </div>
+                  </a>
+                  <a href="#" class="social-icon-container">
+                    <div class="social-icon bg-gray-100 dark:bg-gray-800 hover:bg-gradient-to-r hover:from-accent/80 hover:to-primary/80 text-gray-500 hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 shadow-sm hover:shadow-md">
+                      <i class="fab fa-linkedin"></i>
+                    </div>
+                  </a>
+                  <a href="#" class="social-icon-container">
+                    <div class="social-icon bg-gray-100 dark:bg-gray-800 hover:bg-gradient-to-r hover:from-accent/80 hover:to-primary/80 text-gray-500 hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 shadow-sm hover:shadow-md">
+                      <i class="fas fa-phone"></i>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Enhanced View All Staff Button -->
+        <div class="mt-16 text-center">
+          <a href="#" class="group relative overflow-hidden inline-block px-8 py-3 rounded-full bg-gradient-to-r from-primary to-secondary text-white font-medium shadow-lg hover:shadow-xl transition-all duration-500 transform hover:-translate-y-1">
+            <span class="relative z-10 flex items-center justify-center">
+              View All Staff
+              <i class="fas fa-arrow-right ml-2 transform transition-transform duration-300 group-hover:translate-x-1"></i>
+            </span>
+            <span class="absolute inset-0 bg-gradient-to-r from-secondary to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Enhanced Gallery Section with Glassmorphism and Advanced Animations -->
+    <section id="gallery" class="py-20 px-4 relative overflow-hidden">
+      <!-- Animated Background Elements -->
+      <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-full filter blur-3xl opacity-30 animate-breathe"></div>
+        <div class="absolute bottom-0 right-0 w-80 h-80 bg-gradient-to-tl from-accent/10 to-primary/10 rounded-full filter blur-3xl opacity-30 animate-breathe" style="animation-delay: 1s"></div>
+      </div>
+      
+      <div class="container mx-auto max-w-6xl relative z-10">
+        <!-- Section Title with Animation -->
+        <div class="relative mb-16 text-center">
+          <h2 class="text-3xl md:text-4xl font-bold gradient-text bg-gradient-to-r from-primary/80 to-red-600/80 inline-block">
+            Our Moments
+          </h2>
+          <div class="w-24 h-1 bg-gradient-to-r from-primary/70 to-secondary/70 mx-auto mt-3 rounded-full animate-pulse"></div>
+          <div class="absolute -top-10 -left-10 w-20 h-20 text-5xl text-primary/10 dark:text-primary/20 rotate-12 hidden md:block animate-float">
+            <i class="fas fa-camera"></i>
+          </div>
+        </div>
+        
+        <!-- Gallery Filter Buttons -->
+        <div class="flex justify-center space-x-4 mb-10">
+          <button class="px-4 py-2 rounded-full bg-primary/80 text-white text-sm font-medium hover:bg-primary transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary/50 active">All</button>
+          <button class="px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm text-gray-700 dark:text-gray-200 text-sm font-medium hover:bg-primary/80 hover:text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary/50">Events</button>
+          <button class="px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm text-gray-700 dark:text-gray-200 text-sm font-medium hover:bg-primary/80 hover:text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary/50">Campus</button>
+          <button class="px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm text-gray-700 dark:text-gray-200 text-sm font-medium hover:bg-primary/80 hover:text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary/50">Activities</button>
+        </div>
+        
+        <!-- Enhanced Gallery Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Gallery Item 1 - Enhanced with Glassmorphism -->
+          <div class="gallery-item group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2">
+            <div class="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"></div>
+            <img src="https://picsum.photos/id/1011/600/400" alt="Sports Meet" class="w-full h-64 object-cover transform group-hover:scale-110 transition-all duration-700 ease-in-out">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6 opacity-0 group-hover:opacity-100 transition-all duration-500">
+              <div class="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                <span class="inline-block px-3 py-1 bg-primary/80 text-white text-xs font-bold rounded-full mb-2">Event</span>
+                <h3 class="text-white font-bold text-lg">Annual Sports Meet 2023</h3>
+                <p class="text-white/90 text-sm mt-1">Students showcasing their athletic talents</p>
+                <a href="#" class="inline-block mt-3 text-white/80 hover:text-white text-sm font-medium transition-colors duration-300">
+                  <i class="fas fa-plus mr-1"></i> View More
+                </a>
+              </div>
+            </div>
+            <!-- Decorative Corner Element -->
+            <div class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform rotate-0 group-hover:rotate-90 transition-transform duration-500">
+              <i class="fas fa-expand text-white/90 text-xs"></i>
+            </div>
+          </div>
+          
+          <!-- Gallery Item 2 -->
+          <div class="gallery-item group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2">
+            <div class="absolute inset-0 bg-gradient-to-r from-secondary/20 to-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"></div>
+            <img src="https://picsum.photos/id/1012/600/400" alt="Science Exhibition" class="w-full h-64 object-cover transform group-hover:scale-110 transition-all duration-700 ease-in-out">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6 opacity-0 group-hover:opacity-100 transition-all duration-500">
+              <div class="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                <span class="inline-block px-3 py-1 bg-secondary/80 text-white text-xs font-bold rounded-full mb-2">Activity</span>
+                <h3 class="text-white font-bold text-lg">Science Exhibition</h3>
+                <p class="text-white/90 text-sm mt-1">Innovative projects by our young scientists</p>
+                <a href="#" class="inline-block mt-3 text-white/80 hover:text-white text-sm font-medium transition-colors duration-300">
+                  <i class="fas fa-plus mr-1"></i> View More
+                </a>
+              </div>
+            </div>
+            <div class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform rotate-0 group-hover:rotate-90 transition-transform duration-500">
+              <i class="fas fa-expand text-white/90 text-xs"></i>
+            </div>
+          </div>
+          
+          <!-- Gallery Item 3 -->
+          <div class="gallery-item group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2">
+            <div class="absolute inset-0 bg-gradient-to-r from-accent/20 to-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"></div>
+            <img src="https://picsum.photos/id/1013/600/400" alt="Cultural Event" class="w-full h-64 object-cover transform group-hover:scale-110 transition-all duration-700 ease-in-out">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6 opacity-0 group-hover:opacity-100 transition-all duration-500">
+              <div class="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                <span class="inline-block px-3 py-1 bg-accent/80 text-white text-xs font-bold rounded-full mb-2">Event</span>
+                <h3 class="text-white font-bold text-lg">Cultural Festival</h3>
+                <p class="text-white/90 text-sm mt-1">Celebrating our rich heritage</p>
+                <a href="#" class="inline-block mt-3 text-white/80 hover:text-white text-sm font-medium transition-colors duration-300">
+                  <i class="fas fa-plus mr-1"></i> View More
+                </a>
+              </div>
+            </div>
+            <div class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform rotate-0 group-hover:rotate-90 transition-transform duration-500">
+              <i class="fas fa-expand text-white/90 text-xs"></i>
+            </div>
+          </div>
+          
+          <!-- Gallery Item 4 - Featured (Wider) -->
+          <div class="gallery-item group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2 sm:col-span-2">
+            <div class="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"></div>
+            <img src="https://picsum.photos/id/1014/1200/600" alt="School Building" class="w-full h-64 object-cover transform group-hover:scale-110 transition-all duration-700 ease-in-out">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6 opacity-0 group-hover:opacity-100 transition-all duration-500">
+              <div class="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                <span class="inline-block px-3 py-1 bg-primary/80 text-white text-xs font-bold rounded-full mb-2">Campus</span>
+                <h3 class="text-white font-bold text-lg">Our Campus</h3>
+                <p class="text-white/90 text-sm mt-1">A nurturing environment for learning</p>
+                <a href="#" class="inline-block mt-3 text-white/80 hover:text-white text-sm font-medium transition-colors duration-300">
+                  <i class="fas fa-plus mr-1"></i> View More
+                </a>
+              </div>
+            </div>
+            <!-- Featured Badge -->
+            <div class="absolute top-3 left-3 px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-white text-xs font-bold">
+              Featured
+            </div>
+            <div class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform rotate-0 group-hover:rotate-90 transition-transform duration-500">
+              <i class="fas fa-expand text-white/90 text-xs"></i>
+            </div>
+          </div>
+          
+          <!-- Gallery Item 5 -->
+          <div class="gallery-item group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2">
+            <div class="absolute inset-0 bg-gradient-to-r from-secondary/20 to-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"></div>
+            <img src="https://picsum.photos/id/1015/600/400" alt="Classroom" class="w-full h-64 object-cover transform group-hover:scale-110 transition-all duration-700 ease-in-out">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6 opacity-0 group-hover:opacity-100 transition-all duration-500">
+              <div class="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                <span class="inline-block px-3 py-1 bg-secondary/80 text-white text-xs font-bold rounded-full mb-2">Campus</span>
+                <h3 class="text-white font-bold text-lg">Modern Classrooms</h3>
+                <p class="text-white/90 text-sm mt-1">Technology-enhanced learning spaces</p>
+                <a href="#" class="inline-block mt-3 text-white/80 hover:text-white text-sm font-medium transition-colors duration-300">
+                  <i class="fas fa-plus mr-1"></i> View More
+                </a>
+              </div>
+            </div>
+            <div class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform rotate-0 group-hover:rotate-90 transition-transform duration-500">
+              <i class="fas fa-expand text-white/90 text-xs"></i>
+            </div>
+          </div>
+          
+          <!-- Gallery Item 6 -->
+          <div class="gallery-item group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2">
+            <div class="absolute inset-0 bg-gradient-to-r from-accent/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"></div>
+            <img src="https://picsum.photos/id/1016/600/400" alt="Library" class="w-full h-64 object-cover transform group-hover:scale-110 transition-all duration-700 ease-in-out">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6 opacity-0 group-hover:opacity-100 transition-all duration-500">
+              <div class="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                <span class="inline-block px-3 py-1 bg-accent/80 text-white text-xs font-bold rounded-full mb-2">Campus</span>
+                <h3 class="text-white font-bold text-lg">Library</h3>
+                <p class="text-white/90 text-sm mt-1">A treasure trove of knowledge</p>
+                <a href="#" class="inline-block mt-3 text-white/80 hover:text-white text-sm font-medium transition-colors duration-300">
+                  <i class="fas fa-plus mr-1"></i> View More
+                </a>
+              </div>
+            </div>
+            <div class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform rotate-0 group-hover:rotate-90 transition-transform duration-500">
+              <i class="fas fa-expand text-white/90 text-xs"></i>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Enhanced View All Button -->
+        <div class="mt-12 text-center">
+          <a href="#" class="inline-block px-8 py-3 rounded-full bg-gradient-to-r from-primary/80 to-red-600/80 text-white font-medium shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 relative overflow-hidden group">
+            <span class="relative z-10 flex items-center justify-center">
+              <span>View Full Gallery</span>
+              <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform duration-300"></i>
+            </span>
+            <span class="absolute top-0 left-0 w-full h-full bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></span>
+            <span class="absolute top-0 left-0 w-0 h-full bg-gradient-to-r from-secondary/80 to-accent/80 group-hover:w-full transition-all duration-500"></span>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Gallery Section Specific Styles -->
+      <style>
+        .gallery-item {
+          box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .gallery-item::after {
+          content: '';
+          position: absolute;
+          top: -50%;
+          left: -50%;
+          width: 200%;
+          height: 200%;
+          background: linear-gradient(transparent, rgba(255, 255, 255, 0.1), transparent);
+          transform: rotate(30deg);
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          z-index: 1;
+        }
+        
+        .gallery-item:hover::after {
+          animation: shimmer 1.5s infinite;
+          opacity: 1;
+        }
+        
+        @keyframes shimmer {
+          0% { transform: translateX(-100%) rotate(30deg); }
+          100% { transform: translateX(100%) rotate(30deg); }
+        }
+      </style>
+    </section>
+
+    <!-- Enhanced News & Events Section with Advanced UI/UX Features -->
+<section id="news" class="py-20 px-4 relative overflow-hidden">
+  <!-- Animated Background Elements -->
+  <div class="absolute inset-0 bg-gradient-to-b from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800 -z-10"></div>
+  <div class="absolute inset-0 overflow-hidden pointer-events-none -z-5">
+    <div class="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-full filter blur-3xl opacity-30 animate-breathe"></div>
+    <div class="absolute bottom-0 right-0 w-80 h-80 bg-gradient-to-tl from-accent/5 to-primary/5 rounded-full filter blur-3xl opacity-30 animate-breathe" style="animation-delay: 1s"></div>
+    
+    <!-- Floating Particles -->
+    <div class="particles">
+      <div class="particle" style="top: 10%; left: 20%; width: 3px; height: 3px; animation-duration: 20s;"></div>
+      <div class="particle" style="top: 30%; left: 70%; width: 2px; height: 2px; animation-duration: 25s;"></div>
+      <div class="particle" style="top: 70%; left: 40%; width: 4px; height: 4px; animation-duration: 30s;"></div>
+      <div class="particle" style="top: 50%; left: 10%; width: 2px; height: 2px; animation-duration: 22s;"></div>
+      <div class="particle" style="top: 20%; left: 90%; width: 3px; height: 3px; animation-duration: 28s;"></div>
+    </div>
+  </div>
+  
+  <!-- Enhanced Category Selection Bar -->
+  <div class="container mx-auto max-w-6xl mb-12 relative z-10">
+    <div class="flex flex-wrap justify-center gap-4 p-4 rounded-2xl bg-white/10 dark:bg-gray-800/20 backdrop-blur-md shadow-lg border border-white/10 dark:border-white/5 transition-all duration-500">
+      <button class="news-filter-btn active group flex flex-col items-center justify-center px-5 py-3 rounded-xl bg-white/10 hover:bg-primary/80 transition-all duration-300" data-category="all" aria-pressed="true">
+        <div class="relative">
+          <i class="fas fa-newspaper text-2xl text-primary group-hover:text-white transition-colors duration-300"></i>
+          <span class="absolute -top-1 -right-1 w-2 h-2 bg-primary rounded-full opacity-0 group-hover:opacity-100 animate-pulse"></span>
+        </div>
+        <span class="mt-2 text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-white transition-colors duration-300">
+          All
+        </span>
+      </button>
+      <button class="news-filter-btn group flex flex-col items-center justify-center px-5 py-3 rounded-xl bg-white/10 hover:bg-primary/80 transition-all duration-300" data-category="event" aria-pressed="false">
+        <div class="relative">
+          <i class="fas fa-calendar-alt text-2xl text-primary group-hover:text-white transition-colors duration-300"></i>
+          <span class="absolute -top-1 -right-1 w-2 h-2 bg-primary rounded-full opacity-0 group-hover:opacity-100 animate-pulse"></span>
+        </div>
+        <span class="mt-2 text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-white transition-colors duration-300">
+          Events
+        </span>
+      </button>
+      <button class="news-filter-btn group flex flex-col items-center justify-center px-5 py-3 rounded-xl bg-white/10 hover:bg-primary/80 transition-all duration-300" data-category="announcement" aria-pressed="false">
+        <div class="relative">
+          <i class="fas fa-bullhorn text-2xl text-primary group-hover:text-white transition-colors duration-300"></i>
+          <span class="absolute -top-1 -right-1 w-2 h-2 bg-primary rounded-full opacity-0 group-hover:opacity-100 animate-pulse"></span>
+        </div>
+        <span class="mt-2 text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-white transition-colors duration-300">
+          Announcements
+        </span>
+      </button>
+      <button class="news-filter-btn group flex flex-col items-center justify-center px-5 py-3 rounded-xl bg-white/10 hover:bg-primary/80 transition-all duration-300" data-category="achievement" aria-pressed="false">
+        <div class="relative">
+          <i class="fas fa-award text-2xl text-primary group-hover:text-white transition-colors duration-300"></i>
+          <span class="absolute -top-1 -right-1 w-2 h-2 bg-primary rounded-full opacity-0 group-hover:opacity-100 animate-pulse"></span>
+        </div>
+        <span class="mt-2 text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-white transition-colors duration-300">
+          Achievements
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Enhanced Section Title with Animation -->
+  <div class="container mx-auto max-w-6xl relative z-10">
+    <div class="relative mb-16 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold inline-block bg-clip-text text-transparent bg-gradient-to-r from-primary via-secondary to-primary dark:from-secondary dark:to-primary">
+        Latest News & Events
+      </h2>
+      <div class="w-32 h-1 bg-gradient-to-r from-primary/70 to-secondary/70 mx-auto mt-3 rounded-full animate-pulse"></div>
+      <div class="absolute -top-10 -left-10 w-20 h-20 text-5xl text-primary/10 dark:text-primary/20 rotate-12 hidden md:block animate-float">
+        <i class="fas fa-newspaper"></i>
+      </div>
+    </div>
+
+    <!-- Enhanced News Cards with Improved Animations -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- News Card 1 (Event) - Enhanced with Glassmorphism and Animations -->
+      <div class="news-card group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2" data-category="event">
+        <!-- Card Background with Gradient Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"></div>
+        
+        <!-- Card Content Container -->
+        <div class="glassmorphism rounded-xl overflow-hidden h-full flex flex-col">
+          <!-- Image Container with Hover Effect -->
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://picsum.photos/id/1017/600/400" alt="Sports Meet" class="w-full h-full object-cover transform group-hover:scale-110 transition-all duration-700 ease-in-out">
+            
+            <!-- Category Badge with Enhanced Design -->
+            <div class="absolute top-4 left-4 bg-primary/80 text-white px-3 py-1 rounded-full text-xs font-bold backdrop-blur-sm shadow-md transform group-hover:scale-105 transition-transform duration-300 flex items-center gap-1">
+              <i class="fas fa-calendar-alt text-xs"></i>
+              <span>Event</span>
+            </div>
+            
+            <!-- Decorative Corner Element -->
+            <div class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform rotate-0 group-hover:rotate-90 transition-transform duration-500">
+              <i class="fas fa-expand text-white/90 text-xs"></i>
+            </div>
+          </div>
+          
+          <!-- Card Body with Enhanced Typography and Spacing -->
+          <div class="p-6 flex flex-col flex-grow">
+            <div class="flex justify-between items-start mb-2">
+              <h3 class="text-xl font-bold dark:text-white text-gray-800 group-hover:text-primary transition-colors duration-300">Annual Sports Meet 2023</h3>
+              <span class="text-xs text-white px-2 py-1 rounded-md bg-primary/20 dark:bg-primary/30 backdrop-blur-sm">New</span>
+            </div>
+            
+            <!-- Date with Icon -->
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4 flex items-center gap-2">
+              <i class="far fa-calendar-alt"></i>
+              <span>December 15, 2023</span>
+            </p>
+            
+            <!-- Content Preview -->
+            <p class="text-gray-700 dark:text-gray-300 mb-4 flex-grow">
+              Our annual sports meet will be held on December 15th. Students from all grades will participate in various athletic events.
+            </p>
+            
+            <!-- Enhanced Call-to-Action -->
+            <a href="#" class="inline-flex items-center gap-2 text-primary font-medium hover:text-primary/80 dark:text-primary dark:hover:text-primary/80 transition-colors duration-300 group-hover:translate-x-1 transform transition-transform duration-300">
+              <span>Read More</span>
+              <i class="fas fa-arrow-right text-xs"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- News Card 2 (Announcement) - Enhanced with Glassmorphism and Animations -->
+      <div class="news-card group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2" data-category="announcement">
+        <!-- Card Background with Gradient Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-r from-accent/10 to-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"></div>
+        
+        <!-- Card Content Container -->
+        <div class="glassmorphism rounded-xl overflow-hidden h-full flex flex-col">
+          <!-- Image Container with Hover Effect -->
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://picsum.photos/id/1018/600/400" alt="STEM Lab" class="w-full h-full object-cover transform group-hover:scale-110 transition-all duration-700 ease-in-out">
+            
+            <!-- Category Badge with Enhanced Design -->
+            <div class="absolute top-4 left-4 bg-accent/80 text-white px-3 py-1 rounded-full text-xs font-bold backdrop-blur-sm shadow-md transform group-hover:scale-105 transition-transform duration-300 flex items-center gap-1">
+              <i class="fas fa-bullhorn text-xs"></i>
+              <span>Announcement</span>
+            </div>
+            
+            <!-- Decorative Corner Element -->
+            <div class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform rotate-0 group-hover:rotate-90 transition-transform duration-500">
+              <i class="fas fa-expand text-white/90 text-xs"></i>
+            </div>
+          </div>
+          
+          <!-- Card Body with Enhanced Typography and Spacing -->
+          <div class="p-6 flex flex-col flex-grow">
+            <div class="flex justify-between items-start mb-2">
+              <h3 class="text-xl font-bold dark:text-white text-gray-800 group-hover:text-accent transition-colors duration-300">New STEM Lab Opens for Grade 9–11</h3>
+              <span class="text-xs text-white px-2 py-1 rounded-md bg-accent/20 dark:bg-accent/30 backdrop-blur-sm">Featured</span>
+            </div>
+            
+            <!-- Date with Icon -->
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4 flex items-center gap-2">
+              <i class="far fa-calendar-alt"></i>
+              <span>December 1, 2023</span>
+            </p>
+            
+            <!-- Content Preview -->
+            <p class="text-gray-700 dark:text-gray-300 mb-4 flex-grow">
+              Our new state-of-the-art STEM lab is now open, offering students hands-on experience with modern equipment and tools.
+            </p>
+            
+            <!-- Enhanced Call-to-Action -->
+            <a href="#" class="inline-flex items-center gap-2 text-accent font-medium hover:text-accent/80 dark:text-accent dark:hover:text-accent/80 transition-colors duration-300 group-hover:translate-x-1 transform transition-transform duration-300">
+              <span>Learn More</span>
+              <i class="fas fa-arrow-right text-xs"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- News Card 3 (Achievement) - Enhanced with Glassmorphism and Animations -->
+      <div class="news-card group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2" data-category="achievement">
+        <!-- Card Background with Gradient Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-r from-secondary/10 to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"></div>
+        
+        <!-- Card Content Container -->
+        <div class="glassmorphism rounded-xl overflow-hidden h-full flex flex-col">
+          <!-- Image Container with Hover Effect -->
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://picsum.photos/id/1019/600/400" alt="Scholarship Awards" class="w-full h-full object-cover transform group-hover:scale-110 transition-all duration-700 ease-in-out">
+            
+            <!-- Category Badge with Enhanced Design -->
+            <div class="absolute top-4 left-4 bg-secondary/80 text-white px-3 py-1 rounded-full text-xs font-bold backdrop-blur-sm shadow-md transform group-hover:scale-105 transition-transform duration-300 flex items-center gap-1">
+              <i class="fas fa-award text-xs"></i>
+              <span>Achievement</span>
+            </div>
+            
+            <!-- Decorative Corner Element -->
+            <div class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform rotate-0 group-hover:rotate-90 transition-transform duration-500">
+              <i class="fas fa-expand text-white/90 text-xs"></i>
+            </div>
+          </div>
+          
+          <!-- Card Body with Enhanced Typography and Spacing -->
+          <div class="p-6 flex flex-col flex-grow">
+            <div class="flex justify-between items-start mb-2">
+              <h3 class="text-xl font-bold dark:text-white text-gray-800 group-hover:text-secondary transition-colors duration-300">Scholarship Opportunities Open</h3>
+              <span class="text-xs text-white px-2 py-1 rounded-md bg-secondary/20 dark:bg-secondary/30 backdrop-blur-sm">Important</span>
+            </div>
+            
+            <!-- Date with Icon -->
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4 flex items-center gap-2">
+              <i class="far fa-calendar-alt"></i>
+              <span>January 10, 2024</span>
+            </p>
+            
+            <!-- Content Preview -->
+            <p class="text-gray-700 dark:text-gray-300 mb-4 flex-grow">
+              Students who excel in academics or extracurriculars are encouraged to apply for merit-based scholarships.
+            </p>
+            
+            <!-- Enhanced Call-to-Action -->
+            <a href="#" class="inline-flex items-center gap-2 text-secondary font-medium hover:text-secondary/80 dark:text-secondary dark:hover:text-secondary/80 transition-colors duration-300 group-hover:translate-x-1 transform transition-transform duration-300">
+              <span>Apply Now</span>
+              <i class="fas fa-arrow-right text-xs"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Enhanced View All Button with Animation -->
+    <div class="mt-12 text-center">
+      <a href="#" class="inline-block px-8 py-3 rounded-full bg-gradient-to-r from-primary/80 to-secondary/80 text-white font-medium shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 relative overflow-hidden group">
+        <span class="relative z-10 flex items-center justify-center">
+          <span>View All News</span>
+          <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform duration-300"></i>
+        </span>
+        <span class="absolute top-0 left-0 w-full h-full bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></span>
+        <span class="absolute top-0 left-0 w-0 h-full bg-gradient-to-r from-secondary/80 to-accent/80 group-hover:w-full transition-all duration-500"></span>
+      </a>
+    </div>
+  </div>
+  
+  <!-- News Section Specific Styles -->
+  <style>
+    /* Active filter button styles */
+    .news-filter-btn.active {
+      background: linear-gradient(to right, rgba(231, 76, 60, 0.8), rgba(243, 156, 18, 0.8));
+    }
+    
+    .news-filter-btn.active i,
+    .news-filter-btn.active span {
+      color: white;
+    }
+    
+    /* Card hover effect */
+    .news-card::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(transparent, rgba(255, 255, 255, 0.1), transparent);
+      transform: rotate(30deg);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 1;
+    }
+    
+    .news-card:hover::after {
+      animation: shimmer 1.5s infinite;
+      opacity: 1;
+    }
+    
+    @keyframes shimmer {
+      0% { transform: translateX(-100%) rotate(30deg); }
+      100% { transform: translateX(100%) rotate(30deg); }
+    }
+  </style>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="py-20 px-4 relative overflow-hidden">
+  <!-- Animated Background Elements -->
+  <div class="absolute inset-0 bg-gradient-to-b from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 -z-10"></div>
+  <div class="absolute inset-0 overflow-hidden -z-5">
+    <div class="particles">
+      <div class="particle bg-primary/10 w-24 h-24 rounded-full absolute top-20 left-[10%] animate-float" style="animation-delay: 0s;"></div>
+      <div class="particle bg-secondary/10 w-32 h-32 rounded-full absolute bottom-40 right-[15%] animate-float" style="animation-delay: -2s;"></div>
+      <div class="particle bg-accent/10 w-16 h-16 rounded-full absolute top-1/2 left-[20%] animate-float" style="animation-delay: -4s;"></div>
+      <div class="particle bg-primary/5 w-40 h-40 rounded-full absolute bottom-20 left-[5%] animate-breathe" style="animation-delay: -1s;"></div>
+    </div>
+  </div>
+  
+  <div class="container mx-auto max-w-6xl relative z-10">
+    <!-- Enhanced Section Title -->
+    <div class="relative mb-16 text-center">
+      <h2 class="text-3xl md:text-5xl font-bold text-center mb-4 gradient-text bg-gradient-to-r from-primary via-red-500 to-secondary inline-block">
+        Contact Us
+      </h2>
+      <div class="h-1 w-24 mx-auto bg-gradient-to-r from-primary to-secondary rounded-full mt-2 animate-pulse"></div>
+      <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mt-6 text-center">
+        We'd love to hear from you. Reach out to us with any questions or inquiries.
+      </p>
+    </div>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <!-- Enhanced Contact Form -->
+      <div class="group glassmorphism rounded-xl p-8 shadow-lg transition-all duration-500 backdrop-blur-lg bg-white/20 dark:bg-gray-900/20 border border-white/20 dark:border-gray-700/20 hover:shadow-2xl hover:bg-white/30 dark:hover:bg-gray-800/30">
+        <!-- Decorative Corner Elements -->
+        <div class="absolute -top-2 -left-2 w-10 h-10 border-t-2 border-l-2 border-primary/70 rounded-tl-lg"></div>
+        <div class="absolute -bottom-2 -right-2 w-10 h-10 border-b-2 border-r-2 border-primary/70 rounded-br-lg"></div>
+        
+        <h3 class="text-2xl font-bold mb-6 flex items-center">
+          <span class="bg-gradient-to-r from-primary to-secondary text-transparent bg-clip-text">Send Us a Message</span>
+          <div class="ml-3 h-px w-12 bg-gradient-to-r from-primary/50 to-transparent"></div>
+        </h3>
+        
+        <form id="contactForm" class="space-y-6">
+          <div class="relative group/input transition-all duration-300 rounded-lg overflow-hidden">
+            <input type="text" id="name" class="w-full p-4 rounded-lg bg-gray-100/50 dark:bg-gray-700/50 border border-gray-300/50 dark:border-gray-600/50 focus:outline-none focus:ring-2 focus:ring-primary/50 peer transition-all duration-300" required />
+            <label for="name" class="floating-label text-gray-500 dark:text-gray-400 font-medium transition-all duration-300 px-1 bg-gradient-to-r from-transparent via-white/30 dark:via-gray-800/30 to-transparent">Your Name</label>
+            <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-secondary group-hover/input:w-full transition-all duration-500"></div>
+          </div>
+          
+          <div class="relative group/input transition-all duration-300 rounded-lg overflow-hidden">
+            <input type="email" id="email" class="w-full p-4 rounded-lg bg-gray-100/50 dark:bg-gray-700/50 border border-gray-300/50 dark:border-gray-600/50 focus:outline-none focus:ring-2 focus:ring-primary/50 peer transition-all duration-300" required />
+            <label for="email" class="floating-label text-gray-500 dark:text-gray-400 font-medium transition-all duration-300 px-1 bg-gradient-to-r from-transparent via-white/30 dark:via-gray-800/30 to-transparent">Your Email</label>
+            <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-secondary group-hover/input:w-full transition-all duration-500"></div>
+          </div>
+          
+          <div class="relative group/input transition-all duration-300 rounded-lg overflow-hidden">
+            <textarea id="message" rows="5" class="w-full p-4 rounded-lg bg-gray-100/50 dark:bg-gray-700/50 border border-gray-300/50 dark:border-gray-600/50 focus:outline-none focus:ring-2 focus:ring-primary/50 peer transition-all duration-300"></textarea>
+            <label for="message" class="floating-label text-gray-500 dark:text-gray-400 font-medium transition-all duration-300 px-1 bg-gradient-to-r from-transparent via-white/30 dark:via-gray-800/30 to-transparent">Your Message</label>
+            <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-secondary group-hover/input:w-full transition-all duration-500"></div>
+          </div>
+          
+          <button type="submit" class="group relative overflow-hidden px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-500 transform hover:-translate-y-1">
+            <span class="relative z-10 flex items-center justify-center">
+              Send Message
+              <i class="fas fa-paper-plane ml-2 transform transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"></i>
+            </span>
+            <span class="absolute inset-0 bg-gradient-to-r from-secondary to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Enhanced Contact Info -->
+      <div class="flex flex-col space-y-8">
+        <div class="glassmorphism rounded-xl p-8 shadow-lg transition-all duration-500 backdrop-blur-lg bg-white/20 dark:bg-gray-900/20 border border-white/20 dark:border-gray-700/20 hover:shadow-2xl hover:bg-white/30 dark:hover:bg-gray-800/30 relative overflow-hidden group">
+          <!-- Decorative Corner Elements -->
+          <div class="absolute -top-2 -left-2 w-10 h-10 border-t-2 border-l-2 border-secondary/70 rounded-tl-lg"></div>
+          <div class="absolute -bottom-2 -right-2 w-10 h-10 border-b-2 border-r-2 border-secondary/70 rounded-br-lg"></div>
+          
+          <!-- Decorative Background Element -->
+          <div class="absolute -right-16 -bottom-16 w-48 h-48 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-full opacity-50 group-hover:scale-110 transition-transform duration-700"></div>
+          
+          <h3 class="text-2xl font-bold mb-6 flex items-center relative">
+            <span class="bg-gradient-to-r from-secondary to-primary text-transparent bg-clip-text">Get In Touch</span>
+            <div class="ml-3 h-px w-12 bg-gradient-to-r from-secondary/50 to-transparent"></div>
+          </h3>
+          
+          <ul class="space-y-6 relative">
+            <li class="flex items-start group/item hover:translate-x-1 transition-transform duration-300">
+              <div class="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center mr-4 group-hover/item:scale-110 transition-transform duration-300">
+                <i class="fas fa-map-marker-alt text-primary group-hover/item:text-secondary transition-colors duration-300"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-gray-800 dark:text-gray-200 mb-1">Address</h4>
+                <span class="text-gray-600 dark:text-gray-400">Athurugiriya Road, Homagama, Colombo District, Sri Lanka</span>
+              </div>
+            </li>
+            
+            <li class="flex items-start group/item hover:translate-x-1 transition-transform duration-300">
+              <div class="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center mr-4 group-hover/item:scale-110 transition-transform duration-300">
+                <i class="fas fa-phone text-primary group-hover/item:text-secondary transition-colors duration-300"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-gray-800 dark:text-gray-200 mb-1">Phone</h4>
+                <span class="text-gray-600 dark:text-gray-400">+94 11 123 4567</span>
+              </div>
+            </li>
+            
+            <li class="flex items-start group/item hover:translate-x-1 transition-transform duration-300">
+              <div class="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center mr-4 group-hover/item:scale-110 transition-transform duration-300">
+                <i class="fas fa-envelope text-primary group-hover/item:text-secondary transition-colors duration-300"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-gray-800 dark:text-gray-200 mb-1">Email</h4>
+                <span class="text-gray-600 dark:text-gray-400">info@homagamavidyalaya.lk</span>
+              </div>
+            </li>
+            
+            <li class="flex items-start group/item hover:translate-x-1 transition-transform duration-300">
+              <div class="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center mr-4 group-hover/item:scale-110 transition-transform duration-300">
+                <i class="fas fa-clock text-primary group-hover/item:text-secondary transition-colors duration-300"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-gray-800 dark:text-gray-200 mb-1">Office Hours</h4>
+                <span class="text-gray-600 dark:text-gray-400">Mon-Fri: 8:00 AM - 3:30 PM<br>Weekends: Closed</span>
+              </div>
+            </li>
+          </ul>
+          
+          <!-- Social Media Links -->
+          <div class="mt-8 pt-6 border-t border-gray-200/30 dark:border-gray-700/30">
+            <h4 class="font-semibold text-gray-800 dark:text-gray-200 mb-4">Connect With Us</h4>
+            <div class="flex space-x-4">
+              <a href="#" class="social-icon-container">
+                <div class="social-icon bg-gray-100 dark:bg-gray-800 hover:bg-gradient-to-r hover:from-primary/80 hover:to-secondary/80 text-gray-500 hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 shadow-sm hover:shadow-md">
+                  <i class="fab fa-facebook-f"></i>
+                </div>
+              </a>
+              <a href="#" class="social-icon-container">
+                <div class="social-icon bg-gray-100 dark:bg-gray-800 hover:bg-gradient-to-r hover:from-primary/80 hover:to-secondary/80 text-gray-500 hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 shadow-sm hover:shadow-md">
+                  <i class="fab fa-twitter"></i>
+                </div>
+              </a>
+              <a href="#" class="social-icon-container">
+                <div class="social-icon bg-gray-100 dark:bg-gray-800 hover:bg-gradient-to-r hover:from-primary/80 hover:to-secondary/80 text-gray-500 hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 shadow-sm hover:shadow-md">
+                  <i class="fab fa-instagram"></i>
+                </div>
+              </a>
+              <a href="#" class="social-icon-container">
+                <div class="social-icon bg-gray-100 dark:bg-gray-800 hover:bg-gradient-to-r hover:from-primary/80 hover:to-secondary/80 text-gray-500 hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 shadow-sm hover:shadow-md">
+                  <i class="fab fa-youtube"></i>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Map -->
+        <div class="glassmorphism rounded-xl overflow-hidden shadow-lg">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31688.14411198728!2d79.89045679069226!3d6.877929665918623!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae253d10f882af5%3A0x2aa3b52fd0f2cb0e!2sHomagama!5e0!3m2!1sen!2slk!4v1718000000000!5m2!1sen!2slk" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" class="rounded-lg shadow-inner hover:shadow-xl transition-shadow duration-300"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <!-- Enhanced Footer with Glassmorphism and Animations -->
+  <footer class="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white pt-16 pb-8 relative overflow-hidden">
+    <!-- Animated Aurora Background -->
+    <div class="aurora-bg absolute inset-0 z-0 pointer-events-none">
+      <div class="absolute top-0 left-0 w-full h-full opacity-10">
+        <div class="absolute top-0 left-0 w-full h-96 bg-gradient-to-r from-primary/30 via-secondary/30 to-accent/30 blur-3xl transform -translate-y-1/2 animate-breathe"></div>
+        <div class="absolute bottom-0 right-0 w-full h-96 bg-gradient-to-l from-primary/30 via-secondary/30 to-accent/30 blur-3xl transform translate-y-1/2 animate-breathe" style="animation-delay: 1.5s"></div>
+      </div>
+    </div>
+
+    <!-- Floating Particles -->
+    <div class="particles absolute inset-0 z-0 pointer-events-none">
+      <div class="particle absolute h-1 w-1 rounded-full bg-white/30 top-[10%] left-[20%] animate-float" style="animation-duration: 15s"></div>
+      <div class="particle absolute h-2 w-2 rounded-full bg-primary/30 top-[30%] left-[80%] animate-float" style="animation-duration: 25s; animation-delay: 1s"></div>
+      <div class="particle absolute h-1 w-1 rounded-full bg-secondary/30 top-[70%] left-[10%] animate-float" style="animation-duration: 20s; animation-delay: 2s"></div>
+      <div class="particle absolute h-2 w-2 rounded-full bg-accent/30 top-[50%] left-[50%] animate-float" style="animation-duration: 18s; animation-delay: 0.5s"></div>
+      <div class="particle absolute h-1 w-1 rounded-full bg-white/30 top-[80%] left-[30%] animate-float" style="animation-duration: 22s; animation-delay: 1.5s"></div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top fixed bottom-8 right-8 w-12 h-12 rounded-full bg-gradient-to-r from-primary/80 to-secondary/80 text-white flex items-center justify-center shadow-lg z-50 transform hover:scale-110 transition-all duration-300 opacity-0 invisible">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <div class="container mx-auto px-6 z-10 relative">
+      <!-- Footer Content Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- School Info with Enhanced Styling -->
+        <div class="glassmorphism-footer transform transition-all duration-500 hover:translate-y-[-5px]">
+          <div class="flex items-center mb-4">
+            <div class="relative">
+              <div class="absolute inset-0 bg-gradient-to-r from-primary/70 to-secondary/70 rounded-full blur-md opacity-30 group-hover:opacity-60 animate-pulse"></div>
+                
+              <img src="https://via.placeholder.com/50" alt="School Logo" class="w-16 h-16 rounded-full border-2 border-white/20 object-cover relative z-10">
+            </div>
+            <h3 class="text-xl font-bold ml-4 bg-clip-text text-transparent bg-gradient-to-r from-white/90 to-gray-300/90">Homagama Maha Vidyalaya</h3>
+          </div>
+          <p class="text-sm text-gray-300 mb-6 leading-relaxed">A legacy of excellence in education since 19XX. Nurturing young minds and shaping future leaders with innovative teaching methods and holistic development.</p>
+          
+          <h4 class="text-lg font-semibold mb-4 relative inline-block">
+            Connect With Us
+            <span class="absolute left-0 bottom-[-5px] w-full h-0.5 bg-gradient-to-r from-primary/70 to-secondary/70"></span>
+          </h4>
+          
+          <!-- Enhanced Social Icons with Animation -->
+          <div class="flex space-x-3">
+            <a href="#" class="social-icon-footer" aria-label="Facebook">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="social-icon-footer" aria-label="Twitter">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="social-icon-footer" aria-label="Instagram">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="social-icon-footer" aria-label="YouTube">
+              <i class="fab fa-youtube"></i>
+            </a>
+            <a href="#" class="social-icon-footer" aria-label="LinkedIn">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick Links with Hover Effects -->
+        <div class="glassmorphism-footer transform transition-all duration-500 hover:translate-y-[-5px]">
+          <h3 class="text-lg font-semibold mb-5 relative inline-block">
+            Quick Links
+            <span class="absolute left-0 bottom-[-5px] w-full h-0.5 bg-gradient-to-r from-primary/70 to-secondary/70"></span>
+          </h3>
+          <ul class="space-y-3 footer-links">
+            <li class="footer-link-item">
+              <i class="fas fa-chevron-right text-xs mr-2 text-primary"></i>
+              <a href="#about">About Us</a>
+            </li>
+            <li class="footer-link-item">
+              <i class="fas fa-chevron-right text-xs mr-2 text-primary"></i>
+              <a href="#gallery">Gallery</a>
+            </li>
+            <li class="footer-link-item">
+              <i class="fas fa-chevron-right text-xs mr-2 text-primary"></i>
+              <a href="#news">News & Events</a>
+            </li>
+            <li class="footer-link-item">
+              <i class="fas fa-chevron-right text-xs mr-2 text-primary"></i>
+              <a href="#contact">Contact Us</a>
+            </li>
+            <li class="footer-link-item">
+              <i class="fas fa-chevron-right text-xs mr-2 text-primary"></i>
+              <a href="#">Admissions</a>
+            </li>
+            <li class="footer-link-item">
+              <i class="fas fa-chevron-right text-xs mr-2 text-primary"></i>
+              <a href="#">Academic Calendar</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Programs with Icon Indicators -->
+        <div class="glassmorphism-footer transform transition-all duration-500 hover:translate-y-[-5px]">
+          <h3 class="text-lg font-semibold mb-5 relative inline-block">
+            Our Programs
+            <span class="absolute left-0 bottom-[-5px] w-full h-0.5 bg-gradient-to-r from-primary/70 to-secondary/70"></span>
+          </h3>
+          <ul class="space-y-3 footer-links">
+            <li class="footer-link-item">
+              <i class="fas fa-graduation-cap text-xs mr-2 text-secondary"></i>
+              <a href="#">Primary Education</a>
+            </li>
+            <li class="footer-link-item">
+              <i class="fas fa-book-open text-xs mr-2 text-secondary"></i>
+              <a href="#">Secondary Education</a>
+            </li>
+            <li class="footer-link-item">
+              <i class="fas fa-atom text-xs mr-2 text-secondary"></i>
+              <a href="#">STEM Program</a>
+            </li>
+            <li class="footer-link-item">
+              <i class="fas fa-running text-xs mr-2 text-secondary"></i>
+              <a href="#">Sports Excellence</a>
+            </li>
+            <li class="footer-link-item">
+              <i class="fas fa-palette text-xs mr-2 text-secondary"></i>
+              <a href="#">Extracurricular Activities</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Enhanced Newsletter Subscription -->
+        <div class="glassmorphism-footer transform transition-all duration-500 hover:translate-y-[-5px]">
+          <h3 class="text-lg font-semibold mb-5 relative inline-block">
+            Stay Updated
+            <span class="absolute left-0 bottom-[-5px] w-full h-0.5 bg-gradient-to-r from-primary/70 to-secondary/70"></span>
+          </h3>
+          <p class="text-sm text-gray-300 mb-4 leading-relaxed">Subscribe to our newsletter to receive updates on events, announcements, and school achievements.</p>
+          
+          <!-- Improved Newsletter Form -->
+          <form class="space-y-3">
+            <div class="relative">
+              <input type="email" placeholder="Your email address" required 
+                class="w-full p-3 pl-10 rounded-lg bg-white/5 backdrop-blur-sm border border-white/10 focus:border-primary focus:ring-1 focus:ring-primary text-white placeholder:text-gray-400 transition-all duration-300">
+              <i class="fas fa-envelope absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+            </div>
+            <button type="submit" 
+              class="w-full py-3 px-4 rounded-lg bg-gradient-to-r from-primary/80 to-secondary/80 text-white font-medium transform transition-all duration-300 hover:translate-y-[-3px] hover:shadow-lg relative overflow-hidden group">
+              <span class="relative z-10 flex items-center justify-center">
+                <span>Subscribe</span>
+                <i class="fas fa-paper-plane ml-2 group-hover:translate-x-1 transition-transform duration-300"></i>
+              </span>
+              <span class="absolute top-0 left-0 w-full h-full bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></span>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Enhanced Marquee Graduation Message -->
+      <div class="mt-12 overflow-hidden relative h-10 rounded-full bg-white/5 backdrop-blur-sm border border-white/10">
+        <div class="animate-marquee whitespace-nowrap text-white/90 text-sm py-2.5 px-4 absolute w-max">
+          <span class="inline-block">🎓 Homagama is graduating future leaders every year — Join us in building a brighter tomorrow 🎓</span>
+          <span class="inline-block ml-8">🏆 Our students excel in academics, sports, and arts — Discover the Homagama difference 🏆</span>
+          <span class="inline-block ml-8">📚 Admissions open for the new academic year — Limited seats available 📚</span>
+          <span class="inline-block ml-8">🎓 Homagama is graduating future leaders every year — Join us in building a brighter tomorrow 🎓</span>
+        </div>
+      </div>
+
+      <!-- Enhanced Copyright with Additional Links -->
+      <div class="mt-12 pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
+        <div class="mb-4 md:mb-0">
+          &copy; 2025 Homagama Maha Vidyalaya. All rights reserved.
+        </div>
+        <div class="flex space-x-4">
+          <a href="#" class="hover:text-primary transition-colors duration-300">Privacy Policy</a>
+          <span class="text-gray-600">|</span>
+          <a href="#" class="hover:text-primary transition-colors duration-300">Terms of Service</a>
+          <span class="text-gray-600">|</span>
+          <a href="#" class="hover:text-primary transition-colors duration-300">Sitemap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Footer Specific Styles -->
+  <style>
+    /* Glassmorphism Footer Cards */
+    .glassmorphism-footer {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      height: 100%;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    /* Enhanced Social Icons */
+    .social-icon-footer {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      color: white;
+      font-size: 0.875rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .social-icon-footer:hover {
+      transform: translateY(-3px) scale(1.1);
+      color: white;
+      background: linear-gradient(to right, var(--tw-gradient-stops));
+      --tw-gradient-from: #e74c3c;
+      --tw-gradient-to: #f39c12;
+      --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+      box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+    }
+
+    .social-icon-footer::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(transparent, rgba(255, 255, 255, 0.1), transparent);
+      transform: rotate(30deg);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .social-icon-footer:hover::after {
+      animation: shimmer 1.5s infinite;
+      opacity: 1;
+    }
+
+    /* Footer Links Animation */
+    .footer-link-item {
+      display: flex;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
+
+    .footer-link-item a {
+      color: #d1d5db;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .footer-link-item:hover {
+      transform: translateX(5px);
+    }
+
+    .footer-link-item:hover a {
+      color: white;
+    }
+
+    .footer-link-item a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: linear-gradient(to right, rgba(231, 76, 60, 0.7), rgba(243, 156, 18, 0.7));
+      transition: width 0.3s ease;
+    }
+
+    .footer-link-item:hover a::after {
+      width: 100%;
+    }
+
+    /* Back to Top Button Animation */
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Marquee Animation Control */
+    @keyframes marquee {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+
+    .animate-marquee {
+      animation: marquee 30s linear infinite;
+    }
+  </style>
+
+  <!-- Back to Top Button Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const backToTopButton = document.getElementById('backToTop');
+      
+      // Show/hide button based on scroll position
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 300) {
+          backToTopButton.classList.add('show');
+        } else {
+          backToTopButton.classList.remove('show');
+        }
+      });
+      
+      // Scroll to top when clicked
+      backToTopButton.addEventListener('click', function() {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+
+  <!-- Back to Home Button -->
+  <button id="backToTop" class="back-to-home" aria-label="Back to Top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- JavaScript Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanillajs/1.7.2/vanilla-tilt.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+
+  <!-- Main Script -->
+  <script>
+
+  document.querySelectorAll("[data-category]").forEach(button => {
+    button.addEventListener("click", () => {
+      const category = button.getAttribute("data-category");
+      document.querySelectorAll(".news-card").forEach(card => {
+        card.style.display = (category === "all" || card.classList.contains(category)) ? "block" : "none";
+      });
+    });
+  });
+
+    // Custom Cursor Glow
+    const cursorGlow = document.getElementById("cursorGlow");
+    if (cursorGlow) {
+      document.addEventListener("mousemove", e => {
+        cursorGlow.style.opacity = '0.7';
+        cursorGlow.style.transform = `translate(-50%, -50%) translate(${e.clientX}px, ${e.clientY}px)`;
+      });
+
+      document.addEventListener("mouseleave", () => {
+        cursorGlow.style.opacity = '0';
+      });
+    }
+
+    // Back to Top Button
+    const backToTopBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 500) {
+        backToTopBtn.classList.add('show');
+      } else {
+        backToTopBtn.classList.remove('show');
+      }
+    });
+
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Dark Mode Toggle
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const darkModeIcon = document.getElementById('darkModeIcon');
+
+    function updateDarkModeButton(isDark) {
+      if (isDark) {
+        darkModeIcon.classList.replace('fa-moon', 'fa-sun');
+      } else {
+        darkModeIcon.classList.replace('fa-sun', 'fa-moon');
+      }
+    }
+
+    if (localStorage.getItem('darkMode') === 'true' || (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark').matches)) {
+      document.documentElement.classList.add('dark');
+      updateDarkModeButton(true);
+    }
+
+    darkModeToggle.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      const isDark = document.documentElement.classList.contains('dark');
+      localStorage.setItem('darkMode', isDark);
+      updateDarkModeButton(isDark);
+    });
+
+    // Mobile Menu Toggle
+    const mobileMenuButton = document.getElementById('mobileMenuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Floating Labels
+    const floatingLabels = document.querySelectorAll('.relative input, .relative textarea');
+    floatingLabels.forEach(input => {
+      const label = input.nextElementSibling;
+      input.addEventListener('focus', () => {
+        label.classList.add('floating-label-active');
+      });
+      input.addEventListener('blur', () => {
+        if (!input.value) label.classList.remove('floating-label-active');
+      });
+      if (input.value) label.classList.add('floating-label-active');
+    });
+
+    // Typed.js Hero Text
+    function initTypedText() {
+      if (document.getElementById('typedText')) {
+        new Typed('#typedText', {
+          strings: ["A Legacy of Excellence", "Inspiring Young Minds Since 19XX", "Where Learning Meets Innovation"],
+          loop: true,
+          backSpeed: 50,
+          typeSpeed: 100,
+          backDelay: 1500,
+          showCursor: false
+        });
+      }
+    }
+
+    // GSAP Scroll Animations
+    function initGSAPAnimations() {
+      gsap.utils.toArray('.animate').forEach((el, i) => {
+        gsap.from(el, {
+          opacity: 0,
+          y: 50,
+          duration: 1,
+          scrollTrigger: {
+            trigger: el,
+            start: "top 80%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse"
+          }
+        });
+      });
+    }
+
+    // Tilt Effect for Cards
+    function initTiltEffects() {
+      VanillaTilt.init(document.querySelectorAll(".tilt-effect"), {
+        max: 5,
+        speed: 300,
+        glare: true,
+        'max-glare': 0.1,
+        scale: 1.02
+      });
+    }
+
+    // Three.js Particle Background for Welcome Screen
+    function initWelcomeParticles() {
+      const container = document.getElementById('heroParticles');
+      if (!container) return;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ alpha: true });
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      container.appendChild(renderer.domElement);
+
+      const geometry = new THREE.SphereGeometry(0.1, 16, 16);
+      const material = new THREE.MeshBasicMaterial({ color: 0xe74c3c, transparent: true, opacity: 0.6 });
+
+      const particles = [];
+      for (let i = 0; i < 100; i++) {
+        const sphere = new THREE.Mesh(geometry, material);
+        sphere.position.set(Math.random() * 20 - 10, Math.random() * 20 - 10, Math.random() * 20 - 10);
+        scene.add(sphere);
+        particles.push(sphere);
+      }
+
+      camera.position.z = 5;
+
+      function animateThreeJS() {
+        requestAnimationFrame(animateThreeJS);
+        particles.forEach(p => {
+          p.position.y -= 0.01;
+          if (p.position.y < -10) p.position.y = 10;
+        });
+        renderer.render(scene, camera);
+      }
+
+      animateThreeJS();
+    }
+
+    // Loader Logic
+    document.addEventListener("DOMContentLoaded", () => {
+      const welcomeScreen = document.getElementById("welcomeScreen");
+      const skeletonLoader = document.getElementById("skeletonLoader");
+      const mainContent = document.getElementById("mainContent");
+
+      setTimeout(() => {
+        welcomeScreen.style.opacity = 0;
+        welcomeScreen.style.visibility = "hidden";
+        skeletonLoader.classList.remove("hidden");
+        setTimeout(() => {
+          skeletonLoader.style.opacity = 0;
+          skeletonLoader.style.visibility = "hidden";
+          mainContent.classList.remove("hidden");
+          initTypedText();
+          initGSAPAnimations();
+          initTiltEffects();
+        }, 2000);
+      }, 4000);
+    });
+
+    // Init Functions
+    function initTypedText() {
+      if (document.getElementById('typedText')) {
+        new Typed('#typedText', {
+          strings: ["A Legacy of Excellence", "Inspiring Young Minds Since 19XX", "Where Learning Meets Innovation"],
+          loop: true,
+          backSpeed: 50,
+          typeSpeed: 100,
+          backDelay: 1500,
+          showCursor: false
+        });
+      }
+    }
+
+    function initGSAPAnimations() {
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.utils.toArray('.glassmorphism, .tilt-effect').forEach((el) => {
+        gsap.from(el, {
+          opacity: 0,
+          y: 50,
+          scrollTrigger: {
+            trigger: el,
+            start: "top 80%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse"
+          }
+        });
+      });
+    }
+
+    function initTiltEffects() {
+      VanillaTilt.init(document.querySelectorAll(".tilt-effect"), {
+        max: 5,
+        speed: 300,
+        glare: true,
+        'max-glare': 0.1,
+        scale: 1.02
+      });
+    }
+
+    // Handle Script Errors
+    function handleScriptError(event) {
+      console.error("Script failed to load:", event.target.src);
+      alert("A critical script failed to load. Please check your internet connection.");
+    }
+
+    // Initialize Welcome Particles
+    function initWelcomeParticles() {
+      const container = document.getElementById("particles-js");
+      if (!container) return;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ alpha: true });
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      container.appendChild(renderer.domElement);
+
+      const geometry = new THREE.SphereGeometry(0.1, 16, 16);
+      const material = new THREE.MeshBasicMaterial({ color: 0xe74c3c, transparent: true, opacity: 0.6 });
+
+      const particles = [];
+      for (let i = 0; i < 100; i++) {
+        const sphere = new THREE.Mesh(geometry, material);
+        sphere.position.set(Math.random() * 20 - 10, Math.random() * 20 - 10, Math.random() * 20 - 10);
+        scene.add(sphere);
+        particles.push(sphere);
+      }
+
+      camera.position.z = 5;
+
+      function animateWelcomeJS() {
+        requestAnimationFrame(animateWelcomeJS);
+        particles.forEach(p => {
+          p.position.y -= 0.01;
+          if (p.position.y < -10) p.position.y = 10;
+        });
+        renderer.render(scene, camera);
+      }
+
+      animateWelcomeJS();
+
+      window.addEventListener('resize', () => {
+        camera.aspect = container.clientWidth / container.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.clientWidth, container.clientHeight);
+      });
+    }
+    document.getElementById('enterButton').addEventListener('click', function() {
+      const welcomeScreen = document.getElementById('welcomeScreen');
+      welcomeScreen.style.opacity = '0';
+      setTimeout(() => {
+        welcomeScreen.style.display = 'none';
+      }, 1000);
+    });
+        // Create floating particles
+        document.addEventListener('DOMContentLoaded', function() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 30;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        // Random positioning and animation timing
+        const size = Math.random() * 3 + 1;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.opacity = Math.random() * 0.5 + 0.3;
+        
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        
+        // Different animation duration for each particle
+        const animationDuration = Math.random() * 20 + 10;
+        particle.style.animationDuration = `${animationDuration}s`;
+        particle.style.animationDelay = `${Math.random() * 5}s`;
+        
+        particlesContainer.appendChild(particle);
+      }
+      
+      // Simulate loading completion after 6 seconds
+      setTimeout(() => {
+        const loader = document.getElementById('skeletonLoader');
+        loader.style.opacity = 0;
+        loader.style.transition = 'opacity 1s ease';
+        setTimeout(() => {
+          loader.style.display = 'none';
+        }, 1000);
+      }, 6000);
+    });
+
+    // On DOM Load
+    document.addEventListener("DOMContentLoaded", () => {
+      initWelcomeParticles();
+      initTypedText();
+      initGSAPAnimations();
+      initTiltEffects();
+    });
+const button = $0.parentElement;
+const htmlElement = document.documentElement;
+
+// Store the original click handler if it exists (this is a simplified approach)
+const originalOnClick = button.onclick;
+
+// Add a new click event listener
+button.onclick = function() {
+  htmlElement.classList.toggle('dark');
+  // If there was an original click handler, call it after ours
+  if (originalOnClick) {
+    originalOnClick.apply(this, arguments);
+  }
+};
+
+const data = {
+  message: "Temporarily attached a click handler to the button to toggle the 'dark' class on the <html> element."
+};
+
+  </script>
+
+  <!-- Aurora Gradient Animation -->
+  <style>
+    .aurora-bg::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 100%;
+      background: linear-gradient(120deg, #e74c3c, #f39c12, #8e44ad, #2980b9);
+      background-size: 400% 400%;
+      animation: auroraBG 10s ease infinite;
+    }
+
+    @keyframes auroraBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+  </style>
+  
+  <!-- JavaScript Files -->
+  <script src="script.js"></script>
+  <script src="news.js"></script>
+  <script src="about.js"></script>
+  <script src="contact.js"></script>
+  <script src="staff.js"></script>
+  <script src="header.js"></script>
+</body>
+</html>
